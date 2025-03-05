@@ -2,9 +2,9 @@
  * @name ConfigCompressPlugin
  * @description 开启.gz压缩
  */
-import ViteCompression from "vite-plugin-compression"
+import ViteCompression from 'vite-plugin-compression'
 
 export const ConfigCompressPlugin = (viteEnv: ViteEnv) => {
-	const { VITE_COMPRESS_TYPE = "gzip" } = viteEnv
+	const { VITE_COMPRESS_TYPE = 'gzip' } = viteEnv
 	return ViteCompression({ algorithm: VITE_COMPRESS_TYPE })
 }

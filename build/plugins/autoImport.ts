@@ -3,22 +3,21 @@
  * @description 按需加载，自动引入
  */
 
-import AutoImport from "unplugin-auto-import/vite"
+import AutoImport from 'unplugin-auto-import/vite'
 
 export const AutoImportDeps = () => {
 	return AutoImport({
 		eslintrc: {
-			enabled: true,
-			filepath: './eslint-auto-import.json',
+			enabled: true
+			// filepath: './eslint-auto-import.json',
 		},
-		dts: "src/typings/auto-imports.d.ts",
+		dts: 'src/typings/auto-imports.d.ts',
 		imports: [
-			"vue",
-			"vue-router",
+			'vue',
+			'vue-router',
 			{
-				"@vueuse/core": [],
-			},
-		],
+				'@vueuse/core': []
+			}
+		]
 	})
 }
-

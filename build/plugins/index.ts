@@ -1,24 +1,25 @@
-import type { PluginOption, Plugin } from "vite"
-import vue from "@vitejs/plugin-vue"
-import unocss from "unocss/vite"
-import { AutoRegistryComponents } from "./components"
-import { AutoImportDeps } from "./autoImport"
-import { ConfigSvgIconsPlugin } from "./svgIcons"
-import { ConfigCompressPlugin } from "./compress"
+import type { PluginOption, Plugin } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import unocss from 'unocss/vite'
+import { AutoRegistryComponents } from './components'
+import { AutoImportDeps } from './autoImport'
+import { ConfigSvgIconsPlugin } from './svgIcons'
+import { ConfigCompressPlugin } from './compress'
 import vueDevTools from 'vite-plugin-vue-devtools'
+import eslint from 'vite-plugin-eslint'
 
 /**
  * vite插件
  * @param viteEnv - 环境变量配置
  * @param isBuild - 是否是生产阶段
  */
-export function setupVitePlugins(viteEnv: ViteEnv, isBuild: boolean): (PluginOption | PluginOption[])[]  {
-	const { VITE_COMPRESS, VITE_ICON_PREFIX } = viteEnv
+export function setupVitePlugins(viteEnv: ViteEnv, isBuild: boolean): (PluginOption | PluginOption[])[] {
+	const { VITE_COMPRESS, VITE_ICON_PREFIX, VITE_ESLINT_IN_BROWSER } = viteEnv
 	const vitePlugins: (Plugin | Plugin[] | PluginOption[] | PluginOption)[] = [
 		// vue支持
-		vue(), 
+		vue(),
 		// unocss支持
-		unocss(), 
+		unocss(),
 		// vue3.x devtools
 		vueDevTools()
 	]
@@ -35,6 +36,10 @@ export function setupVitePlugins(viteEnv: ViteEnv, isBuild: boolean): (PluginOpt
 	if (isBuild && VITE_COMPRESS) {
 		// 开启.gz压缩  rollup-plugin-gzip
 		vitePlugins.push(ConfigCompressPlugin(viteEnv))
+	}
+
+	if (VITE_ESLINT_IN_BROWSER) {
+		vitePlugins.push(eslint())
 	}
 
 	return vitePlugins

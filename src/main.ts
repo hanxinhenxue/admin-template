@@ -1,5 +1,16 @@
 import { createApp } from 'vue'
-import './style.css'
 import App from './App.vue'
 
-createApp(App).mount('#app')
+import { setupAssets } from '@/plugins'
+import { setupStore } from '@/store'
+
+async function setupApp() {
+	setupAssets()
+
+	const app = createApp(App)
+
+	setupStore(app)
+
+	app.mount('#app')
+}
+setupApp()

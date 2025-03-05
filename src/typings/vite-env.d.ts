@@ -20,6 +20,8 @@ interface ViteEnv {
 	readonly VITE_ROUTE_HOME_PATH: string
 	/** 是否使用hash路由 */
 	readonly VITE_USE_HASH?: boolean
+	/** eslint错误显示在浏览器中，团队合作需要使用 */
+	readonly VITE_ESLINT_IN_BROWSER?: boolean
 	/** iconify图标作为组件的前缀 */
 	readonly VITE_ICON_PREFIX: string
 	/** 是否开启打包压缩 */
@@ -29,14 +31,14 @@ interface ViteEnv {
 	/** 开发代理模式 */
 	readonly VITE_PROXY?: [string, string][]
 }
-  
-  /** 键值对对象 */
-  type Recordable<T = unknown> = {
-      [x: string]: T;
-  }
-  
-  /** 代理配置类型 */
-  type ProxyItem = [string, string]
-  
-  /** 开发env文件中代理配置 例如： [ ['/api', 'https://www.baidu.com'], ... ] */
-  type ProxyList = ProxyItem[]
+
+/** 键值对对象 */
+type Recordable<T = unknown> = {
+	[x: string]: T
+}
+
+/** 代理配置类型 */
+type ProxyItem = [string, string]
+
+/** 开发env文件中代理配置 例如： [ ['/api', 'https://www.baidu.com'], ... ] */
+type ProxyList = ProxyItem[]

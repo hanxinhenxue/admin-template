@@ -20,8 +20,8 @@ export default defineConfig(({ command, mode, isPreview }: ConfigEnv): UserConfi
 		resolve: {
 			alias: {
 				'~': rootPath,
-				'@': srcPath,
-			},
+				'@': srcPath
+			}
 		},
 
 		plugins: setupVitePlugins(viteEnv, isBuild),
@@ -30,19 +30,19 @@ export default defineConfig(({ command, mode, isPreview }: ConfigEnv): UserConfi
 			host: '0.0.0.0',
 			port: VITE_PORT,
 			open: VITE_OPEN,
-			proxy: createViteProxy(enableProxy, VITE_PROXY),
+			proxy: createViteProxy(enableProxy, VITE_PROXY)
 		},
 
 		css: {
 			preprocessorOptions: {
-			  scss: {
-				api: 'modern-compiler',
-			  }
+				scss: {
+					api: 'modern-compiler'
+				}
 			}
-		  },
+		},
 
 		build: {
-			reportCompressedSize: false,
-		},
+			reportCompressedSize: false
+		}
 	}
 })

@@ -1,4 +1,4 @@
-import type { ProxyOptions } from "vite"
+import type { ProxyOptions } from 'vite'
 
 /**
  * 设置网络代理
@@ -13,9 +13,9 @@ export function createViteProxy(isUseProxy: boolean | undefined, proxyConfig: Pr
 		proxyConfigs[prefix] = {
 			target,
 			changeOrigin: true,
-			rewrite: (path: string): string => path.replace(new RegExp(`^${prefix}`), ""),
+			rewrite: (path: string): string => path.replace(new RegExp(`^${prefix}`), ''),
 			ws: true,
-			secure: false, // https需要改成false
+			secure: false // https需要改成false
 		}
 	})
 	return proxyConfigs
