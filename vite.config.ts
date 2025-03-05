@@ -1,4 +1,5 @@
 import type { ConfigEnv, UserConfig } from 'vite'
+import process from 'node:process'
 import { defineConfig, loadEnv } from 'vite'
 import { createViteProxy, getDirPath, getRootPath, setupVitePlugins, wrapperEnv } from './build'
 

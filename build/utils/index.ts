@@ -1,4 +1,6 @@
 import path from 'node:path'
+import process from 'node:process'
+
 /**
  * 获取项目根路径
  * @descrition 末尾不带斜杠
