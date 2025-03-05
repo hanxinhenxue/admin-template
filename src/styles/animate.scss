@@ -1,0 +1,22 @@
+@keyframes breathing {
+    from {
+        filter: brightness(110%);
+        text-shadow:
+            0 0 5px rgba(52, 145, 255, 0.4),
+            0 0 10px rgba(52, 145, 255, 0.4),
+            0 0 15px rgba(52, 145, 255, 0.4),
+            0 0 20px rgba(52, 145, 255, 0.78),
+            0 0 35px rgba(52, 145, 255, 0.78);
+    }
+    to {
+        text-shadow:
+            0 0 10px rgba(52, 145, 255, 0.4),
+            0 0 20px rgba(52, 145, 255, 0.4),
+            0 0 30px rgba(52, 145, 255, 0.4),
+            0 0 40px rgba(52, 145, 255, 0.78),
+            0 0 70px rgba(52, 145, 255, 0.78);
+    }
+}
+.breath {
+    animation: breathing 1.5s ease-in-out infinite alternate;
+}
