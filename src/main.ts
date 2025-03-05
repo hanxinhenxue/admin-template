@@ -1,16 +1,16 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-
 import { setupAssets } from '@/plugins'
 import { setupStore } from '@/store'
 
+import { createApp } from 'vue'
+import App from './App.vue'
+
 async function setupApp() {
-	setupAssets()
+  setupAssets()
 
-	const app = createApp(App)
+  const app = createApp(App)
 
-	setupStore(app)
+  setupStore(app)
 
-	app.mount('#app')
+  app.mount('#app')
 }
 setupApp()

@@ -1,19 +1,23 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
+
+const a = 2
 </script>
 
 <template>
-	<div>
-		<a href="https://vite.dev" target="_blank">
-			<img src="@/assets/vue.svg" class="logo" alt="Vite logo" />
-		</a>
-		<a href="https://vuejs.org/" target="_blank">
-			<img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-		</a>
-	</div>
-	<div flex-center text-red>测试</div>
-	<AppLoading />
-	<HelloWorld msg="Vite + Vue" />
+  <div>
+    <a href="https://vite.dev" target="_blank">
+      <img src="@/assets/vue.svg" class="logo" alt="Vite logo">
+    </a>
+    <a href="https://vuejs.org/" target="_blank">
+      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo">
+    </a>
+  </div>
+  <div flex-center text-red>
+    测试
+  </div>
+  <AppLoading />
+  <HelloWorld msg="Vite + Vue" />
 </template>
 
 <style scoped>

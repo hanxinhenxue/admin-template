@@ -5,19 +5,19 @@
 
 import AutoImport from 'unplugin-auto-import/vite'
 
-export const AutoImportDeps = () => {
-	return AutoImport({
-		eslintrc: {
-			enabled: true
-			// filepath: './eslint-auto-import.json',
-		},
-		dts: 'src/typings/auto-imports.d.ts',
-		imports: [
-			'vue',
-			'vue-router',
-			{
-				'@vueuse/core': []
-			}
-		]
-	})
+export function AutoImportDeps() {
+  return AutoImport({
+    eslintrc: {
+      enabled: true,
+      // filepath: './eslint-auto-import.json',
+    },
+    dts: 'src/typings/auto-imports.d.ts',
+    imports: [
+      'vue',
+      'vue-router',
+      {
+        '@vueuse/core': [],
+      },
+    ],
+  })
 }

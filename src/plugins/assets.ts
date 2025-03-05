@@ -3,5 +3,6 @@
  */
 import 'uno.css'
 import '@/styles/index.scss'
-import 'virtual:svg-icons-register' // 自动引入svg插件样式
+import 'virtual:svg-icons-register'
+// 自动引入svg插件样式
 export default function setupAssets() {}

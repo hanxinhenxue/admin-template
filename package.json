@@ -1,12 +1,14 @@
 {
   "name": "admin-template",
-  "private": true,
-  "version": "0.0.0",
   "type": "module",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
   },
   "dependencies": {
     "@vueuse/core": "^12.7.0",
@@ -24,23 +26,20 @@
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.21.0",
+    "@antfu/eslint-config": "^4.5.1",
     "@iconify/json": "^2.2.311",
     "@iconify/vue": "^4.3.0",
     "@types/crypto-js": "^4.2.2",
     "@types/node": "^22.13.5",
     "@types/qs": "^6.9.18",
-    "@unocss/eslint-config": "66.1.0-beta.3",
+    "@unocss/eslint-plugin": "^66.0.0",
     "@unocss/transformer-directives": "66.1.0-beta.3",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/tsconfig": "^0.7.0",
     "eslint": "^9.21.0",
-    "eslint-plugin-vue": "^9.32.0",
     "globals": "^16.0.0",
-    "prettier": "^3.5.3",
     "sass": "^1.85.1",
     "typescript": "~5.7.2",
-    "typescript-eslint": "^8.25.0",
     "unocss": "66.1.0-beta.3",
     "unplugin-auto-import": "^19.1.1",
     "unplugin-icons": "^22.1.0",
