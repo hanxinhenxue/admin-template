@@ -1,6 +1,6 @@
 <template>
   <div class="fixed wh-full flex-center flex-col">
-    <SvgIcon local-icon="logo" size="128" class="text-primary" />
+    <SvgIcon local-icon="logo" class="text-primary" style="width: 128px; height: 128px" />
     <div class="my-36px h-56px w-56px">
       <div class="relative h-full animate-spin">
         <div v-for="(item, index) in lodingClasses" :key="index" class="abs h-16px w-16px animate-pulse rounded-8px bg-primary" :class="item" />

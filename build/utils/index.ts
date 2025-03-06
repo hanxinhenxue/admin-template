@@ -28,7 +28,7 @@ export function getDirPath(dirName = 'src') {
  * @param envConf - env文件参数
  * @descrition 将env文件参数转换为确定的类型
  */
-export function wrapperEnv(envConf: Record<string, any>): ViteEnv {
+export function wrapperEnv(envConf: Record<string, any>): Env.ImportMeta {
   const ret: any = {}
 
   for (const envName of Object.keys(envConf)) {

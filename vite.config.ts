@@ -8,7 +8,7 @@ export default defineConfig(({ command, mode, isPreview }: ConfigEnv): UserConfi
   const isBuild = command === 'build'
   const enableProxy = command === 'serve' && !isPreview
   const root = process.cwd()
-  const env = loadEnv(mode, root) as unknown as ImportMetaEnv
+  const env = loadEnv(mode, root) as unknown as Env.ImportMeta
   const viteEnv = wrapperEnv(env)
 
   const rootPath = getRootPath()

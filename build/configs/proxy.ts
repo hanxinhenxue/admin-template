@@ -1,5 +1,8 @@
 import type { ProxyOptions } from 'vite'
 
+type ProxyItem = [string, string]
+type ProxyList = ProxyItem[]
+
 /**
  * 设置网络代理
  * @param isOpenProxy - 是否开启代理

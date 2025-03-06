@@ -14,6 +14,7 @@ export default antfu(
           order: ['template', 'script', 'style'], // 自定义顺序
         },
       ],
+      '@typescript-eslint/no-empty-object-type': 'off',
     },
   },
 )

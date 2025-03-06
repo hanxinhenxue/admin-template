@@ -13,7 +13,7 @@ import { ConfigSvgIconsPlugin } from './svgIcons'
  * @param viteEnv - 环境变量配置
  * @param isBuild - 是否是生产阶段
  */
-export function setupVitePlugins(viteEnv: ViteEnv, isBuild: boolean): (PluginOption | PluginOption[])[] {
+export function setupVitePlugins(viteEnv: Env.ImportMeta, isBuild: boolean): (PluginOption | PluginOption[])[] {
   const { VITE_COMPRESS, VITE_ICON_PREFIX, VITE_ESLINT_IN_BROWSER } = viteEnv
   const vitePlugins: (Plugin | Plugin[] | PluginOption[] | PluginOption)[] = [
     // vue支持

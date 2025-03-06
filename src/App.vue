@@ -1,34 +1,44 @@
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="@/assets/vue.svg" class="logo" alt="Vite logo">
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo">
-    </a>
-  </div>
-  <div flex-center text-red>
-    测试
-  </div>
-  <AppLoading />
-  <HelloWorld msg="Vite + Vue" />
+  <NConfigProvider
+    :theme="naiveDarkTheme"
+    :theme-overrides="themeStore.naiveTheme"
+    :locale="zhCN"
+    :date-locale="dateZhCN"
+    class="h-full"
+  >
+    <AppProvider>
+      <RouterView />
+      <NWatermark v-if="themeStore.watermark.visible" v-bind="watermarkProps" />
+    </AppProvider>
+  </NConfigProvider>
 </template>
 
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-</script>
+import type { WatermarkProps } from 'naive-ui'
+import { useThemeStore } from '@/store'
+import { darkTheme, dateZhCN, NConfigProvider, zhCN } from 'naive-ui'
 
-<style scoped>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
+defineOptions({
+  name: 'App',
+})
+
+const themeStore = useThemeStore()
+
+const naiveDarkTheme = computed(() => (themeStore.darkMode ? darkTheme : undefined))
+
+const watermarkProps = computed<WatermarkProps>(() => {
+  return {
+    content: themeStore.watermark.text,
+    cross: true,
+    fullscreen: true,
+    fontSize: 16,
+    lineHeight: 16,
+    width: 384,
+    height: 384,
+    xOffset: 12,
+    yOffset: 60,
+    rotate: -15,
+    zIndex: 9999,
   }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  .logo.vue:hover {
-    filter: drop-shadow(0 0 2em #42b883aa);
-  }
-</style>
+})
+</script>
