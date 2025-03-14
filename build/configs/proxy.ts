@@ -5,8 +5,8 @@ type ProxyList = ProxyItem[]
 
 /**
  * 设置网络代理
- * @param isOpenProxy - 是否开启代理
- * @param proxyConfig - 代理配置
+ * @param isOpenProxy - 是否开启代理，开发环境默认为true
+ * @param proxyConfig - 代理配置，在env文件中修改VITE_PROXY，可以配置多套代理
  */
 export function createViteProxy(isOpenProxy: boolean | undefined, proxyConfig: ProxyList = []) {
   const proxyConfigs: Record<string, string | ProxyOptions> = {}
@@ -19,7 +19,7 @@ export function createViteProxy(isOpenProxy: boolean | undefined, proxyConfig: P
       changeOrigin: true,
       rewrite: (path: string): string => path.replace(new RegExp(`^${prefix}`), ''),
       ws: true,
-      secure: false, // https需要改成false
+      secure: false, // https需要改成false，忽略https证书校验
     }
   })
   return proxyConfigs

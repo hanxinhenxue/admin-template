@@ -1565,7 +1565,7 @@ export const colorNames: [hex: string, name: string][] = [
   ['#ffffb4', 'Portafino'],
   ['#fffff0', 'Ivory'],
   ['#ffffff', 'White'],
-];
+]
 
 /**
  * Map Of hex color values to color names

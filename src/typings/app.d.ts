@@ -157,4 +157,66 @@ declare namespace App {
     }
   }
 
+  namespace Global {
+    interface Menu {
+      /**
+       * 菜单key等于route key
+       */
+      key: string
+      /** 菜单名字 */
+      label: string
+      /** 完整的路由 */
+      routeKey: string | symbol | undefined
+      /** 路由路径 */
+      routePath: string | symbol | undefined
+      /** 图标 */
+      icon?: () => VNode
+      /** 子菜单 */
+      children?: Menu[]
+    }
+
+    type Breadcrumb = Omit<Menu, 'children'> & {
+      options?: Breadcrumb[]
+    }
+
+    interface Tab {
+      /** The tab id */
+      id: string
+      /** The tab label */
+      label: string
+      /**
+       * The new tab label
+       *
+       * If set, the tab label will be replaced by this value
+       */
+      newLabel?: string
+      /**
+       * The old tab label
+       *
+       * when reset the tab label, the tab label will be replaced by this value
+       */
+      oldLabel?: string
+      /** The tab route key */
+      routeKey: string
+      /** The tab route path */
+      routePath: string
+      /** The tab route full path */
+      fullPath: string
+      /** The tab fixed index */
+      fixedIndex?: number | null
+      /**
+       * Tab icon
+       *
+       * Iconify icon
+       */
+      icon?: string
+      /**
+       * Tab local icon
+       *
+       * Local icon
+       */
+      localIcon?: string
+    }
+  }
+
 }
