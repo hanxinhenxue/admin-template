@@ -1,7 +1,6 @@
 import { useBoolean } from '@/hooks'
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import { defineStore } from 'pinia'
-import { effectScope, onScopeDispose, watch } from 'vue'
 import { useThemeStore } from '../theme'
 
 export const useAppStore = defineStore('app-store', () => {
@@ -9,6 +8,8 @@ export const useAppStore = defineStore('app-store', () => {
   const { bool: reloadFlag, setBool: setReloadFlag } = useBoolean(true)
   const { bool: drawerVisible, setBool: setDrawerVisible, toggle: toggleDrawerVisible } = useBoolean(false)
   const { bool: siderCollapse, setBool: setSiderCollapse, toggle: toggleSiderCollapse } = useBoolean(true)
+  const { bool: fullContent, toggle: toggleFullContent } = useBoolean()
+  const { bool: contentXScrollable, setBool: setContentXScrollable } = useBoolean()
   const breakpoints = useBreakpoints(breakpointsTailwind)
   const isMobile = breakpoints.smaller('sm')
   const scope = effectScope()
@@ -26,6 +27,8 @@ export const useAppStore = defineStore('app-store', () => {
     })
 
     setReloadFlag(true)
+
+    document.documentElement.scrollTo({ left: 0, top: 0 })
   }
 
   scope.run(() => {
@@ -46,6 +49,10 @@ export const useAppStore = defineStore('app-store', () => {
   })
 
   return {
+    fullContent,
+    toggleFullContent,
+    contentXScrollable,
+    setContentXScrollable,
     reloadFlag,
     setReloadFlag,
     reloadPage,

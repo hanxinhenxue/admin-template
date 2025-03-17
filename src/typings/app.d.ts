@@ -158,6 +158,8 @@ declare namespace App {
   }
 
   namespace Global {
+    type RouteLocationNormalizedLoaded = import('vue-router').RouteLocationNormalizedLoaded
+    type RouteLocationAsRelativeGeneric = import('vue-router').RouteLocationAsRelativeGeneric
     interface Menu {
       /**
        * 菜单key等于route key
@@ -178,44 +180,25 @@ declare namespace App {
     type Breadcrumb = Omit<Menu, 'children'> & {
       options?: Breadcrumb[]
     }
-
+    type TabRoute = Pick<RouteLocationNormalizedLoaded, 'name' | 'path' | 'meta'> &
+      Partial<Pick<RouteLocationNormalizedLoaded, 'fullPath' | 'query' | 'matched'>>
     interface Tab {
       /** The tab id */
-      id: string
-      /** The tab label */
-      label: string
-      /**
-       * The new tab label
-       *
-       * If set, the tab label will be replaced by this value
-       */
-      newLabel?: string
-      /**
-       * The old tab label
-       *
-       * when reset the tab label, the tab label will be replaced by this value
-       */
-      oldLabel?: string
-      /** The tab route key */
-      routeKey: string
-      /** The tab route path */
-      routePath: string
-      /** The tab route full path */
+      name: string | symbol | undefined
       fullPath: string
-      /** The tab fixed index */
-      fixedIndex?: number | null
-      /**
-       * Tab icon
-       *
-       * Iconify icon
-       */
-      icon?: string
-      /**
-       * Tab local icon
-       *
-       * Local icon
-       */
-      localIcon?: string
+      path?: string
+      meta: {
+        title?: string
+        icon?: string
+        localIcon?: string
+        iconFontSize?: number
+        image?: string
+        imageStyle?: Record<string, string>
+        sort?: number | null
+        href?: string | null
+        activeMenu?: string | null
+        badge?: boolean | string
+      }
     }
   }
 

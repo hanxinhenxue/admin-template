@@ -38,8 +38,9 @@ declare module 'vue-router' {
     activeMenu?: string | null
     /** 小红点或者文字 boolean默认小红点 */
     badge?: boolean | string
+    path?: string
   }
-  
+
   interface _RouteRecordBase {
     /** 是否在侧边栏隐藏 */
     hidden?: boolean | null

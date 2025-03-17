@@ -1,4 +1,4 @@
-import type { RouteLocationNormalizedGeneric, RouteLocationNormalizedLoadedGeneric  }vigationGuardNext } from 'vue-router'
+import type { NavigationGuardNext, RouteLocationNormalizedGeneric, RouteLocationNormalizedLoadedGeneric } from 'vue-router'
 import { useAuthStore, useRouteStore } from '@/store'
 
 /**
@@ -10,13 +10,13 @@ export async function createPermissionGuard(to: RouteLocationNormalizedGeneric, 
   // 初始化权限路由
   /** 没有token */
   if (!authStore.isLogin) {
-    const toName = to.name
+    const toName = to.name as string
     if (routeStore.isValidConstantRoute(toName) && !to.meta.permissions) {
       next()
     }
     else {
       const redirect = to.fullPath
-      next({ name: 'Login', query: { redirect } })
+      next({ name: import.meta.env.VITE_ROUTE_LOGIN_NAME, query: { redirect } })
     }
     return false
   }
@@ -28,12 +28,12 @@ export async function createPermissionGuard(to: RouteLocationNormalizedGeneric, 
   // 用户权限在路由权限任意一个代表有权限
   const hasPermission = !permissions.length || permissions.some(item => authStore.userPermissions.includes(item))
   // 已登录状态跳转登录页，跳转至首页
-  if (to.name === 'Login') {
-    next({ name: 'Dashboard' })
+  if (to.name === import.meta.env.VITE_ROUTE_LOGIN_NAME) {
+    next({ name: import.meta.env.VITE_ROUTE_HOME_NAME })
   }
   else if (needLogin) {
     // 有权限直接通行，无权限去到无权限页面
-    hasPermission ? next() : next({ name: 'NoPermissions' })
+    hasPermission ? next() : next({ name: import.meta.env.VITE_ROUTE_NOPERMISSIONS_NAME })
   }
   else {
     next()

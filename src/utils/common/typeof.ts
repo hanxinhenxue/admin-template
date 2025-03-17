@@ -64,7 +64,7 @@ export function isEmpty(value: unknown) {
   if (isNumber(value))
     return value === 0
   if (isDate(value))
-    return isNaN(value.getTime())
+    return Number.isNaN(value.getTime())
   if (isFunction(value))
     return false
   if (isSymbol(value))

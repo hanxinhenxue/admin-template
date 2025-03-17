@@ -1,140 +1,110 @@
-import { SetupStoreId } from '@/enum'
-import { useRouterPush } from '@/hooks/common/router'
-import { $t } from '@/locales'
-import { fetchGetUserInfo, fetchLogin } from '@/service/api'
-import { localStg } from '@/utils/storage'
-import { useLoading } from '@sa/hooks'
+import { fetchToken, fetchUserInfo, toLogout } from '@/api'
+import { useLoading } from '@/hooks'
+import { addDynamicRoutes, resetRouter, router } from '@/router'
+import { getTimePoint, localStg } from '@/utils'
 import { defineStore } from 'pinia'
-import { computed, reactive, ref } from 'vue'
-import { useRoute } from 'vue-router'
-import { useRouteStore } from '../route'
-import { useTabStore } from '../tab'
 import { clearAuthStorage, getToken } from './shared'
 
 export const useAuthStore = defineStore('auth-store', () => {
-  const route = useRoute()
-  const routeStore = useRouteStore()
-  const tabStore = useTabStore()
-  const { toLogin, redirectFromLogin } = useRouterPush(false)
-  const { loading: loginLoading, startLoading, endLoading } = useLoading()
-
   const token = ref(getToken())
+  const { loading: loginLoading, startLoading, endLoading } = useLoading()
 
   const userInfo = reactive({
     userId: '',
     userName: '',
+    avatar: '',
     roles: [],
     permissions: [],
-  })
-
-  /** is super role in static route */
-  const isStaticSuper = computed(() => {
-    const { VITE_AUTH_ROUTE_MODE, VITE_STATIC_SUPER_ROLE } = import.meta.env
-
-    return VITE_AUTH_ROUTE_MODE === 'static' && userInfo.roles.includes(VITE_STATIC_SUPER_ROLE)
   })
 
   /** Is login */
   const isLogin = computed(() => Boolean(token.value))
 
-  /** Reset auth store */
-  async function resetStore() {
-    const authStore = useAuthStore()
+  const userPermissions = computed<string[]>(() => userInfo?.roles || [])
 
-    clearAuthStorage()
+  const avatar = computed(() => userInfo?.avatar || '')
 
-    authStore.$reset()
-
-    if (!route.meta.constant) {
-      await toLogin()
-    }
-
-    tabStore.cacheTabs()
-    routeStore.resetStore()
-  }
+  const userAuthority = computed(() => userInfo?.permissions || [])
 
   /**
-   * Login
-   *
-   * @param userName User name
-   * @param password Password
-   * @param [redirect] Whether to redirect after login. Default is `true`
+   * @description 退出登录，清空缓存及信息
    */
-  async function login(userName: string, password: string, redirect = true) {
-    startLoading()
+  async function logout() {
+    toLogout().then(() => {
+      const authStore = useAuthStore()
 
-    const { data: loginToken, error } = await fetchLogin(userName, password)
+      clearAuthStorage()
 
-    if (!error) {
-      const pass = await loginByToken(loginToken)
+      authStore.$reset()
 
-      if (pass) {
-        await redirectFromLogin(redirect)
-
-        window.$notification?.success({
-          title: $t('page.login.common.loginSuccess'),
-          content: $t('page.login.common.welcomeBack', { userName: userInfo.userName }),
-          duration: 4500,
-        })
-      }
+      const currentRoute = unref(router.currentRoute)
+      const redirect = currentRoute.fullPath
+      router.replace({
+        name: import.meta.env.VITE_ROUTE_LOGIN_NAME,
+        query: {
+          redirect,
+        },
+      })
+      resetRouter()
+    })
+  }
+  /**
+   * 处理登录后成功或失败的逻辑
+   * @param loginToken - 返回的token
+   */
+  async function handleActionAfterLogin(loginToken: string) {
+    token.value = loginToken
+    localStg.set('token', loginToken)
+    const { data: userInfo } = await fetchUserInfo()
+    Object.assign(userInfo, userInfo)
+    localStg.set('userInfo', userInfo)
+    await addDynamicRoutes()
+    const query = unref(router.currentRoute).query
+    // 跳转登录后的地址
+    // 获取登录后去往的路由，默认首页，有redirect就跳转redirect
+    if (query?.redirect) {
+      const path = query.redirect as string
+      Reflect.deleteProperty(query, 'redirect')
+      router.push({ path, query })
     }
     else {
-      resetStore()
+      router.push(import.meta.env.VITE_ROUTE_HOME_PATH)
     }
 
-    endLoading()
+    // 登录成功弹出欢迎提示
+    window.$notification?.success({
+      title: `${getTimePoint()}`,
+      content: `欢迎回来，${userInfo.username}`,
+      duration: 3000,
+    })
   }
-
-  async function loginByToken(loginToken: Api.Auth.LoginToken) {
-    // 1. stored in the localStorage, the later requests need it in headers
-    localStg.set('token', loginToken.token)
-    localStg.set('refreshToken', loginToken.refreshToken)
-
-    // 2. get user info
-    const pass = await getUserInfo()
-
-    if (pass) {
-      token.value = loginToken.token
-
-      return true
-    }
-
-    return false
-  }
-
-  async function getUserInfo() {
-    const { data: info, error } = await fetchGetUserInfo()
-
-    if (!error) {
-      // update store
-      Object.assign(userInfo, info)
-
-      return true
-    }
-
-    return false
-  }
-
-  async function initUserInfo() {
-    const hasToken = getToken()
-
-    if (hasToken) {
-      const pass = await getUserInfo()
-
-      if (!pass) {
-        resetStore()
+  /**
+   * 登录
+   * @param username - 用户名
+   * @param password - 密码加密
+   * @param saveAccount - 存储账号
+   */
+  async function loginHandle(username: string, password: string, saveAccount: boolean) {
+    startLoading()
+    const { code, data } = await fetchToken({ username, password })
+    if (code === 200 && data) {
+      if (saveAccount) {
+        localStg.set('loginInfo', { username })
       }
+      await handleActionAfterLogin(data)
     }
+    endLoading()
   }
 
   return {
     token,
     userInfo,
-    isStaticSuper,
+    userPermissions,
     isLogin,
     loginLoading,
-    resetStore,
-    login,
-    initUserInfo,
+    avatar,
+    userAuthority,
+    logout,
+    loginHandle,
   }
 })
