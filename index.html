@@ -26,72 +26,26 @@
   <meta name="description" content="%VITE_DESCRIPTION%" />
   <link rel="icon" type="image/x-icon" href="/favicon.svg" />
   <title>%VITE_TITLE%</title>
-  
-  <script>
-    (function () {
-      // 特性检测：Vue3 需要 Proxy/ES6 支持
-      const isCompatible = () => {
-        try {
-          // 检测 Proxy/ES6 支持
-          new Proxy({}, {});
-          eval("class {}");
-          eval("() => {}");
-          return true;
-        } catch (e) {
-          return false;
-        }
-      };
-
-      // 浏览器类型检测（针对 IE/旧 Edge）
-      const isUnsupportedBrowser = () => {
-        const ua = navigator.userAgent;
-        return ua.indexOf('MSIE ') > -1 ||  // IE 10-
-          ua.indexOf('Trident/') > -1 ||    // IE 11
-          ua.indexOf('Edge/16') > -1;       // Edge Legacy (16-18)
-      };
-
-      // 显示提示
-      const showWarning = () => {
-        const div = document.createElement('div');
-        div.innerHTML = `
-            <div style="
-              position: fixed;
-              top: 0;
-              left: 0;
-              right: 0;
-              bottom: 0;
-              background: rgba(0,0,0,0.9);
-              color: white;
-              z-index: 9999;
-              padding: 20px;
-              text-align: center;
-              font-family: sans-serif;
-            ">
-              <h1>⚠️ 浏览器不兼容</h1>
-              <p>您的浏览器无法运行本应用，请使用以下现代浏览器：</p>
-              <div style="margin-top: 20px;">
-                <a href="https://www.google.com/chrome/" style="color: #4CAF50; margin: 0 10px;">下载 Chrome</a>
-                <a href="https://www.mozilla.org/firefox/" style="color: #FF9800; margin: 0 10px;">下载 Firefox</a>
-                <a href="https://www.microsoft.com/edge" style="color: #2196F3; margin: 0 10px;">下载 Edge</a>
-              </div>
-            </div>
-          `;
-        document.body.prepend(div);
-      };
-
-      // 执行检测
-      if (!isCompatible() || isUnsupportedBrowser()) {
-        showWarning();
-        throw new Error('Browser not supported'); // 阻止后续 JS 执行
-      }
-    })();
-  </script>
 </head>
 
 <body>
   <div id="app">
     <div id="appLoading"></div>
   </div>
+  <script type="text/javascript">
+    ;(function (window) {
+      var theUA = window.navigator.userAgent.toLowerCase()
+      var userAgent = navigator.userAgent
+      if (
+        (theUA.indexOf('compatible') > -1 && theUA.indexOf('msie') > -1) ||
+        (userAgent.indexOf('Trident') > -1 && userAgent.indexOf('rv:11.0') > -1)
+      ) {
+        var str = '您的浏览器版本太低，已经和时代脱轨了 :('
+        var str2 = '请前往设置对浏览器版本进行升级，如果已经是最新版本，请在设置中修改浏览器内核'
+        alert(str + '\n' + '\n' + str2)
+      }
+    })(window)
+  </script>
   <script type="module" src="/src/main.ts"></script>
 </body>
 

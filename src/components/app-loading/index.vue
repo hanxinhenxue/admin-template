@@ -1,6 +1,6 @@
 <template>
   <div class="fixed wh-full flex-center flex-col">
-    <SvgIcon local-icon="logo" class="text-primary" style="width: 128px; height: 128px" />
+    <SvgIcon local-icon="logo" class="text-primary" :size="128" />
     <div class="my-36px h-56px w-56px">
       <div class="relative h-full animate-spin">
         <div v-for="(item, index) in lodingClasses" :key="index" class="abs h-16px w-16px animate-pulse rounded-8px bg-primary" :class="item" />
@@ -14,10 +14,9 @@
 
 <script setup lang="ts">
 import { themeSettings } from '@/settings'
+import { localStg } from '@/utils'
 
-defineOptions({
-  name: 'AppLoading',
-})
+defineOptions({ name: 'AppLoading' })
 
 const websitTitle = ref<string>(import.meta.env.VITE_NAME)
 
@@ -29,7 +28,7 @@ const lodingClasses = ref([
 ])
 
 function addThemeColorCssVars() {
-  const themeColor = themeSettings.themeColor
+  const themeColor = localStg.get('themeColor') || themeSettings.themeColor
 
   const cssVars = `--primary-color: ${themeColor}`
   document.documentElement.style.cssText = cssVars

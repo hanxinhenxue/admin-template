@@ -39,7 +39,7 @@
 import { useTabStore, useThemeStore } from '@/store'
 import { useElementBounding } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
-import { BetterScroll } from './components/better-scroll.vue'
+import BetterScroll from './components/better-scroll.vue'
 import ContextMenu from './components/context-menu.vue'
 import ReloadButton from './components/reload-button.vue'
 import TabItem from './components/tab-item.vue'
@@ -51,7 +51,7 @@ defineOptions({
 const route = useRoute()
 const themeStore = useThemeStore()
 const tabStore = useTabStore()
-const { darkMode, themeColor } = storeToRefs(theme)
+const { darkMode, themeColor } = storeToRefs(themeStore)
 const headerHeight = computed(() => themeStore.header.height)
 const tabHeight = computed(() => themeStore.tab.height)
 const mode = computed(() => themeStore.tab.mode)

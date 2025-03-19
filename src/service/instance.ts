@@ -19,7 +19,7 @@ export default class CustomAxiosInstance {
     this.setInterceptor()
   }
 
-  /** 设置请求拦截器 */
+  /** @description 设置请求拦截器 */
   setInterceptor() {
     // 创建取消请求实例
     const abortAxios = new AbortRequest()
@@ -80,7 +80,7 @@ export default class CustomAxiosInstance {
     )
   }
 
-  /** 获取 axios实例 */
+  /** @description 获取 axios实例 */
   getAxiosInstance() {
     return this.instance
   }

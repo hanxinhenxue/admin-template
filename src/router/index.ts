@@ -35,7 +35,9 @@ export async function setupRouter(app: App) {
   app.use(router)
   await router.isReady()
 }
-
+/**
+ * @description 安装权限路由
+ */
 export async function addDynamicRoutes() {
   const authStore = useAuthStore()
   // 没有token情况
@@ -57,6 +59,9 @@ export async function addDynamicRoutes() {
     console.error(error)
   }
 }
+/**
+ * @description 重置路由
+ */
 export async function resetRouter() {
   const basicRouteNames = getRouteNames(CONSTANT_ROUTES)
   router.getRoutes().forEach((route) => {
@@ -66,10 +71,18 @@ export async function resetRouter() {
     }
   })
 }
+/**
+ * @description 获取路由名字集合
+ * @param routes 路由列表
+ */
 export function getRouteNames(routes: RouteRecordRaw[]) {
   return routes.map(route => getRouteName(route)).flat(1)
 }
 
+/**
+ * @description 获取路由名字
+ * @param route 路由
+ */
 function getRouteName(route: RouteRecordRaw) {
   const names = [route.name]
   if (route.children && route.children.length) {

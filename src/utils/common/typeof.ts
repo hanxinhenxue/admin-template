@@ -1,10 +1,7 @@
 /**
- * 判断数据类型
+ * @description 判断数据类型
  * @param value - 数据源
  * @return boolean - 数据类型是否一致
- */
-/**
- * @desc 数据字典
  */
 export const dataTypeLabels = {
   string: '[object String]',

@@ -3,7 +3,7 @@ import { isArray, isFile } from '@/utils'
 import { stringify } from 'qs'
 
 /**
- * 请求数据的转换
+ * @description 请求数据的转换
  * @param requestData - 请求数据
  * @param contentType - 请求头的Content-Type
  */
@@ -22,6 +22,10 @@ export async function autoFormatParamsInterceptor(requestData: any, contentType:
   return data
 }
 
+/**
+ * @description 将不同的数据进行组装
+ * @param data - 请求数据
+ */
 async function handleFormData(data: Record<string, any>) {
   const formData = new FormData()
   const entries = Object.entries(data)
@@ -41,7 +45,7 @@ async function handleFormData(data: Record<string, any>) {
 }
 
 /**
- * 接口为上传文件的类型时数据转换
+ * @description 接口为上传文件的类型时数据转换
  * @param formData - FormData
  * @param key - 文件的属性名
  * @param file - 单文件或多文件

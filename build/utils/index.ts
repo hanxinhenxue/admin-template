@@ -2,17 +2,15 @@ import path from 'node:path'
 import process from 'node:process'
 
 /**
- * 获取项目根路径
- * @descrition 末尾不带斜杠
+ * @description 获取项目根路径，末尾不带斜杠
  */
 export function getRootPath() {
   return path.resolve(process.cwd())
 }
 
 /**
- * 获取项目目录路径
- * @param dirName - 目录名称(默认: "src")
- * @descrition 末尾不带斜杠
+ * @description 获取项目目录路径，末尾不带斜杠
+ * @param dirName - 拼接的目录名称(默认: "src")
  */
 export function getDirPath(dirName = 'src') {
   const rootPath = getRootPath()
@@ -21,10 +19,7 @@ export function getDirPath(dirName = 'src') {
 }
 
 /**
- * 将环境变量参数改为需要的类型
- */
-/**
- * 将环境变量参数改为需要的类型
+ * @description 将环境变量参数改为需要的类型
  * @param envConf - env文件参数
  * @descrition 将env文件参数转换为确定的类型
  */

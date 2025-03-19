@@ -15,9 +15,7 @@
 import { useDialog, useLoadingBar, useMessage, useNotification } from 'naive-ui'
 import { createTextVNode } from 'vue'
 
-defineOptions({
-  name: 'AppProvider',
-})
+defineOptions({ name: 'AppProvider' })
 
 const ContextHolder = defineComponent({
   name: 'ContextHolder',

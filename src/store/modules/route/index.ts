@@ -15,7 +15,7 @@ export const useRouteStore = defineStore('route-store', () => {
   const menus = computed(() => routes.value.filter((route: RouteRecordRaw) => route.name && !route.hidden))
 
   /**
-   * 是否是有效的固定路由
+   * @description 是否是有效的固定路由
    * @param name 路由名称
    */
   function isValidConstantRoute(name: string) {
@@ -24,7 +24,7 @@ export const useRouteStore = defineStore('route-store', () => {
     return constantRouteNames.includes(name) && name !== NOT_FOUND_PAGE_NAME
   }
   /**
-   * 根据角色生成路由
+   * @description 根据角色生成路由
    * @param role 角色
    */
   function generateRoutes(role: string[]) {
@@ -34,13 +34,17 @@ export const useRouteStore = defineStore('route-store', () => {
     return accessRoutes
   }
   /**
-   * 重置路由
+   * @description 重置路由
    */
   function resetPermission() {
     const routeStore = useRouteStore()
     routeStore.$reset()
   }
 
+  /**
+   * @description 移除缓存路由
+   * @param routeName 路由名称
+   */
   function removeCacheRoute(routeName: RouteRecordNameGeneric) {
     const index = cacheRoutes.value.findIndex(name => name === routeName)
     if (index !== -1) {
@@ -48,6 +52,10 @@ export const useRouteStore = defineStore('route-store', () => {
     }
   }
 
+  /**
+   * @description 添加缓存路由
+   * @param routeName 路由名称
+   */
   function addCacheRoute(routeName: RouteRecordNameGeneric) {
     const index = cacheRoutes.value.indexOf(routeName)
     if (index === -1) {
@@ -55,6 +63,10 @@ export const useRouteStore = defineStore('route-store', () => {
     }
   }
 
+  /**
+   * @description 刷新缓存路由
+   * @param name 路由名称
+   */
   async function reCacheRoute(name: RouteRecordNameGeneric) {
     const { reloadPage } = useAppStore()
     const isCached = cacheRoutes.value.includes(name)

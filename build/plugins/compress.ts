@@ -1,6 +1,5 @@
 /**
- * @name ConfigCompressPlugin
- * @description 开启.gz压缩
+ * @description gzip压缩，开发环境默认false
  */
 import ViteCompression from 'vite-plugin-compression'
 

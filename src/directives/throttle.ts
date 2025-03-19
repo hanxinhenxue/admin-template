@@ -7,7 +7,6 @@ interface ElType extends HTMLElement {
 /**
  * @description v-throttle按钮节流指令，防止按钮在短时间内被多次点击，使用节流函数限制规定时间内只能点击一次
  * @params function类型
- *
  */
 export default function throttle(app: App) {
   const throttleDirective: Directive = {

@@ -75,7 +75,6 @@ interface ChartHooks {
 }
 
 /**
- * 使用echarts
  * @description 通过使用useEcharts返回dom元素，更新option方法 、设置option方法
  * @param optionsFactory echarts配置项
  * @return domRef 绑定的dom元素，需要有宽高

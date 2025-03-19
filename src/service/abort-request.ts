@@ -5,12 +5,12 @@ import type { RequestConfig } from './type'
  */
 
 /**
- * 用于存储控制器
+ * @description 用于存储控制器
  */
 const pendingMap = new Map<string, AbortController>()
 /**
- * 创建各请求唯一标识
- * @param config
+ * @description 创建各请求唯一标识
+ * @param config axiosConfig
  */
 function generateReqKey(config: RequestConfig) {
   return [
@@ -22,6 +22,10 @@ function generateReqKey(config: RequestConfig) {
 }
 
 class AbortRequest {
+  /**
+   * @description 添加请求到请求池
+   * @param config axiosConfig
+   */
   addPending(config: RequestConfig) {
     this.removePending(config)
     const url = generateReqKey(config)
@@ -30,6 +34,10 @@ class AbortRequest {
     pendingMap.set(url, abortController)
   }
 
+  /**
+   * @description 移除请求从请求池
+   * @param config axiosConfig
+   */
   removePending(config: RequestConfig) {
     const key = generateReqKey(config)
     if (pendingMap.has(key)) {
@@ -38,6 +46,9 @@ class AbortRequest {
     }
   }
 
+  /**
+   * @description 取消请求池所有请求
+   */
   removeAllPending() {
     pendingMap.forEach((abortController) => {
       if (abortController) {
@@ -47,7 +58,9 @@ class AbortRequest {
     this.clear()
   }
 
-  clear() {
+  /**
+   * @description 清空请求池
+   */ clear() {
     pendingMap.clear()
   }
 }

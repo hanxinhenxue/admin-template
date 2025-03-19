@@ -11,7 +11,7 @@ const NO_ERROR_MSG_CODE: (string | number | undefined)[] = ['ERR_CANCELED']
 let isShowingError = false
 
 /**
- * 显示错误信息
+ * @description 显示错误信息
  * @param error
  */
 export function handleError(error: AxiosError) {

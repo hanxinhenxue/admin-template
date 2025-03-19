@@ -9,7 +9,7 @@ class Crypto<T> {
   }
 
   /**
-   * 加密数据
+   * @description 加密数据
    * @param data - 数据
    */
   encrypt(data: T): string {
@@ -19,7 +19,7 @@ class Crypto<T> {
   }
 
   /**
-   * 解密数据
+   * @description 解密数据
    * @param encrypted - 密文
    */
   decrypt(encrypted: string) {
@@ -35,7 +35,7 @@ class Crypto<T> {
   }
 
   /**
-   * md5加密，不可解密
+   * @description md5加密，不可解密
    * @param data - 数据
    */
   encryptMd5(data: string) {

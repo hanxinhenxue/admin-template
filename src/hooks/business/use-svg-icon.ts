@@ -2,28 +2,24 @@ import SvgIcon from '@/components/svg-icon/index.vue'
 import { h } from 'vue'
 
 interface IconConfig {
-  /** Iconify icon name */
+  /** 在线图标名称 */
   icon?: string
-  /** Local icon name */
+  /** 本地图标名称 */
   localIcon?: string
-  /** Icon color */
+  /** 图标颜色 */
   color?: string
-  /** Icon size */
+  /** 图标尺寸 */
   iconFontSize?: number
 }
 
 type IconStyle = Partial<Pick<CSSStyleDeclaration, 'color' | 'width' | 'height'>>
+
 /**
- * Svg icon render hook
- *
+ * @description 使用hooks形式创建svg图标
  * @param config 图标配置
+ * @return vNode
  */
 export function useSvgIcon(config: IconConfig) {
-  /**
-   * Svg icon VNode
-   *
-   * @param config
-   */
   const { color, iconFontSize, icon, localIcon } = config
 
   const style: IconStyle = {}

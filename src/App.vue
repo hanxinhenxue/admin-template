@@ -1,7 +1,7 @@
 <template>
   <NConfigProvider
-    :theme="naiveDarkTheme"
-    :theme-overrides="themeStore.naiveTheme"
+    :theme="themeStore.naiveTheme"
+    :theme-overrides="themeStore.naiveThemeOverrides"
     :locale="zhCN"
     :date-locale="dateZhCN"
     class="h-full"
@@ -16,15 +16,11 @@
 <script setup lang="ts">
 import type { WatermarkProps } from 'naive-ui'
 import { useThemeStore } from '@/store'
-import { darkTheme, dateZhCN, NConfigProvider, zhCN } from 'naive-ui'
+import { dateZhCN, NConfigProvider, zhCN } from 'naive-ui'
 
-defineOptions({
-  name: 'App',
-})
+defineOptions({ name: 'App' })
 
 const themeStore = useThemeStore()
-
-const naiveDarkTheme = computed(() => (themeStore.darkMode ? darkTheme : undefined))
 
 const watermarkProps = computed<WatermarkProps>(() => {
   return {

@@ -1,7 +1,6 @@
 /**
- * Toggle html class
- *
- * @param className
+ * @description 切换html class
+ * @param className 类名
  */
 export function toggleHtmlClass(className: string) {
   function add() {
@@ -20,7 +19,7 @@ export function toggleHtmlClass(className: string) {
 
 /**
  * @description 获取当前时间点
- * @return 时间点汉语
+ * @return 时间点描述
  */
 export function getTimePoint() {
   const hour = new Date().getHours()

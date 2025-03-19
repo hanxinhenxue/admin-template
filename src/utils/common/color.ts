@@ -1,7 +1,7 @@
-import { colord, extend } from 'colord'
-import namesPlugin from 'colord/plugins/names'
-import mixPlugin from 'colord/plugins/mix'
 import type { AnyColor, HsvColor } from 'colord'
+import { colord, extend } from 'colord'
+import mixPlugin from 'colord/plugins/mix'
+import namesPlugin from 'colord/plugins/names'
 
 extend([namesPlugin, mixPlugin])
 
@@ -21,13 +21,12 @@ const lightColorCount = 5
 const darkColorCount = 4
 
 /**
- * 调色板的颜色索引
- * @description 从左至右颜色从浅到深，6为主色号
+ * @description 调色板的颜色索引，从左至右颜色从浅到深，6为主色号
  */
 type ColorIndex = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
 
 /**
- * 根据颜色获取调色板颜色(从左至右颜色从浅到深，6为主色号)
+ * @description 根据颜色获取调色板颜色(从左至右颜色从浅到深，6为主色号)
  * @param color - 颜色
  * @param index - 调色板的对应的色号(6为主色号)
  * @returns 返回hex格式的颜色
@@ -36,7 +35,7 @@ export function getColorPalette(color: AnyColor, index: ColorIndex): string {
   const transformColor = colord(color)
 
   if (!transformColor.isValid()) {
-    throw Error('invalid input color value')
+    throw new Error('invalid input color value')
   }
 
   if (index === 6) {
@@ -56,7 +55,7 @@ export function getColorPalette(color: AnyColor, index: ColorIndex): string {
   return colord(newHsv).toHex()
 }
 
-/** 暗色主题颜色映射关系表 */
+/** @description 暗色主题颜色映射关系表 */
 const darkColorMap = [
   { index: 7, opacity: 0.15 },
   { index: 6, opacity: 0.25 },
@@ -71,7 +70,7 @@ const darkColorMap = [
 ]
 
 /**
- * 根据颜色获取调色板颜色所有颜色
+ * @description 根据颜色获取调色板颜色所有颜色
  * @param color - 颜色
  * @param darkTheme - 暗黑主题的调色板颜色
  * @param darkThemeMixColor - 暗黑主题的混合颜色，默认 #141414
@@ -79,11 +78,11 @@ const darkColorMap = [
 export function getColorPalettes(
   color: AnyColor,
   darkTheme = false,
-  darkThemeMixColor = '#141414'
+  darkThemeMixColor = '#141414',
 ): string[] {
   const indexes: ColorIndex[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-  const patterns = indexes.map((index) => getColorPalette(color, index))
+  const patterns = indexes.map(index => getColorPalette(color, index))
 
   if (darkTheme) {
     const darkPatterns = darkColorMap.map(({ index, opacity }) => {
@@ -92,14 +91,14 @@ export function getColorPalettes(
       return darkColor
     })
 
-    return darkPatterns.map((item) => colord(item).toHex())
+    return darkPatterns.map(item => colord(item).toHex())
   }
 
   return patterns
 }
 
 /**
- * 获取色相渐变
+ * @description 获取色相渐变
  * @param hsv - hsv格式颜色值
  * @param i - 与6的相对距离
  * @param isLight - 是否是亮颜色
@@ -114,7 +113,8 @@ function getHue(hsv: HsvColor, i: number, isLight: boolean) {
     // 减淡变亮 色相顺时针旋转 更暖
     // 加深变暗 色相逆时针旋转 更冷
     hue = isLight ? hsvH - hueStep * i : hsvH + hueStep * i
-  } else {
+  }
+  else {
     // 暖色调
     // 减淡变亮 色相逆时针旋转 更暖
     // 加深变暗 色相顺时针旋转 更冷
@@ -133,7 +133,7 @@ function getHue(hsv: HsvColor, i: number, isLight: boolean) {
 }
 
 /**
- * 获取饱和度渐变
+ * @description 获取饱和度渐变
  * @param hsv - hsv格式颜色值
  * @param i - 与6的相对距离
  * @param isLight - 是否是亮颜色
@@ -148,9 +148,11 @@ function getSaturation(hsv: HsvColor, i: number, isLight: boolean) {
 
   if (isLight) {
     saturation = hsv.s - saturationStep * i
-  } else if (i === darkColorCount) {
+  }
+  else if (i === darkColorCount) {
     saturation = hsv.s + saturationStep
-  } else {
+  }
+  else {
     saturation = hsv.s + saturationStep2 * i
   }
 
@@ -170,7 +172,7 @@ function getSaturation(hsv: HsvColor, i: number, isLight: boolean) {
 }
 
 /**
- * 获取明度渐变
+ * @description 获取明度渐变
  * @param hsv - hsv格式颜色值
  * @param i - 与6的相对距离
  * @param isLight - 是否是亮颜色
@@ -180,7 +182,8 @@ function getValue(hsv: HsvColor, i: number, isLight: boolean) {
 
   if (isLight) {
     value = hsv.v + brightnessStep1 * i
-  } else {
+  }
+  else {
     value = hsv.v - brightnessStep2 * i
   }
 
@@ -192,7 +195,7 @@ function getValue(hsv: HsvColor, i: number, isLight: boolean) {
 }
 
 /**
- * 给颜色加透明度
+ * @description 给颜色加透明度
  * @param color - 颜色
  * @param alpha - 透明度(0 - 1)
  */
@@ -201,7 +204,7 @@ export function addColorAlpha(color: string, alpha: number) {
 }
 
 /**
- * 颜色混合
+ * @description 颜色混合
  * @param firstColor - 第一个颜色
  * @param secondColor - 第二个颜色
  * @param ratio - 第二个颜色占比
@@ -209,13 +212,13 @@ export function addColorAlpha(color: string, alpha: number) {
 export function mixColor(
   firstColor: string,
   secondColor: string,
-  ratio: number
+  ratio: number,
 ) {
   return colord(firstColor).mix(secondColor, ratio).toHex()
 }
 
 /**
- * 是否是白颜色
+ * @description 是否是白颜色
  * @param color - 颜色
  */
 export function isWhiteColor(color: string) {
@@ -223,10 +226,9 @@ export function isWhiteColor(color: string) {
 }
 
 /**
- *	获取颜色的rgb值
+ * @description 获取颜色的rgb值
  * @param color 颜色
  */
 export function getRgbOfColor(color: string) {
   return colord(color).toRgb()
 }
-

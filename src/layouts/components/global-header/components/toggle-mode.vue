@@ -25,9 +25,9 @@ const props = defineProps({
 const themeStore = useThemeStore()
 const darkMode = computed(() => themeStore.darkMode)
 
-async function handleSwitch(event: Event) {
+async function handleSwitch(event) {
   if (!props.animate) {
-    themeStore.toggleCssDarkMode()
+    themeStore.toggleDarkMode()
     return
   }
   const x = event.clientX
@@ -35,7 +35,7 @@ async function handleSwitch(event: Event) {
   const endRadius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y))
 
   const transition = document.startViewTransition(() => {
-    themeStore.toggleCssDarkMode(!darkMode.value)
+    themeStore.toggleDarkMode(!darkMode.value)
   })
 
   await transition.ready
@@ -56,21 +56,21 @@ async function handleSwitch(event: Event) {
 </script>
 
 <style>
-	::view-transition-old(root),
-	::view-transition-new(root) {
-		animation: none;
-		mix-blend-mode: normal;
-	}
-	::view-transition-old(root) {
-		z-index: 9999;
-	}
-	::view-transition-new(root) {
-		z-index: 1;
-	}
-	.dark::view-transition-old(root) {
-		z-index: 1;
-	}
-	.dark::view-transition-new(root) {
-		z-index: 9999;
-	}
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+  ::view-transition-old(root) {
+    z-index: 9999;
+  }
+  ::view-transition-new(root) {
+    z-index: 1;
+  }
+  .dark::view-transition-old(root) {
+    z-index: 1;
+  }
+  .dark::view-transition-new(root) {
+    z-index: 9999;
+  }
 </style>

@@ -1,6 +1,6 @@
 import type { Router } from 'vue-router'
 /**
- * 路由守卫函数
+ * @description 路由守卫函数
  * @param router - 路由实例
  */
 import { useTitle } from '@vueuse/core'

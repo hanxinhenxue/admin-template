@@ -6,7 +6,6 @@ interface ElType extends HTMLElement {
 /**
  * @description v-debounce按钮防抖指令，可自行扩展至input
  * @params function类型
- *
  */
 export default function debounce(app: App) {
   const debounceDirective: Directive = {

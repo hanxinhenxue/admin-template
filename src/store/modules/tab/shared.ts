@@ -1,7 +1,7 @@
 import type { RouteRecordNameGeneric } from 'vue-router'
 import { localStg } from '@/utils'
 /**
- * 对meta中icon和localIcon属性进行处理
+ * @description 对meta中icon和localIcon属性进行处理
  * @param route 路由
  */
 function getRouteIcons(route: App.Global.TabRoute) {
@@ -16,7 +16,7 @@ function getRouteIcons(route: App.Global.TabRoute) {
   return { icon, localIcon }
 }
 /**
- * 根据vue路由获取tab路由
+ * @description 根据路由获取tab路由
  * @param route
  */
 export function getTabRouteByVueRoute(route: App.Global.TabRoute) {
@@ -35,7 +35,7 @@ export function getTabRouteByVueRoute(route: App.Global.TabRoute) {
   return tabRoute
 }
 /**
- * 获取该页签在多页签数据中的索引
+ * @description 获取该页签在多页签数据中的索引
  * @param tabs - 多页签数据
  * @param fullPath - 该页签的路径
  */
@@ -44,7 +44,7 @@ export function getIndexInTabRoutes(tabs: App.Global.TabRoute[], fullPath: Route
 }
 
 /**
- * 判断该页签是否在多页签数据中
+ * @description 判断该页签是否在多页签数据中
  * @param tabs - 多页签数据
  * @param fullPath - 该页签的路径
  */
@@ -53,14 +53,16 @@ export function isInTabRoutes(tabs: App.Global.TabRoute[], fullPath: RouteRecord
 }
 
 /**
- * 根据路由名称获取该页签在多页签数据中的索引
+ * @description 根据路由名称获取该页签在多页签数据中的索引
  * @param tabs - 多页签数据
  * @param routeName - 路由名称
  */
 export function getIndexInTabRoutesByRouteName(tabs: App.Global.TabRoute[], routeName: RouteRecordNameGeneric) {
   return tabs.findIndex(tab => tab.name === routeName)
 }
-/** 获取缓存的多页签数据 */
+/**
+ * @description 获取缓存的多页签数据
+ */
 export function getTabRoutes() {
   const routes = []
   const data: App.Global.TabRoute[] = localStg.get('multiTabRoutes') || []
@@ -73,7 +75,9 @@ export function getTabRoutes() {
   return routes
 }
 
-/** 清空多页签数据 */
+/**
+ * @description 清空多页签数据
+ */
 export function clearTabRoutes() {
   localStg.set('multiTabRoutes', [])
 }

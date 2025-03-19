@@ -2,11 +2,10 @@ import { useRafFn } from '@vueuse/core'
 import { computed, onScopeDispose, ref } from 'vue'
 
 /**
- * 倒计时
- *
- * @param seconds - 倒计时多少秒
+ * @description 倒计时
+ * @params seconds 秒数，默认30秒
  */
-export default function useCountDown(seconds: number) {
+export default function useCountDown(seconds: number = 30) {
   const FPS_PER_SECOND = 60
 
   const fps = ref(0)

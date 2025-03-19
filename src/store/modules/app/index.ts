@@ -14,7 +14,7 @@ export const useAppStore = defineStore('app-store', () => {
   const isMobile = breakpoints.smaller('sm')
   const scope = effectScope()
   /**
-   * 刷新内容
+   * @description 刷新页面
    * @param duration 过渡时间，毫秒
    */
   async function reloadPage(duration = 300) {
@@ -31,8 +31,10 @@ export const useAppStore = defineStore('app-store', () => {
     document.documentElement.scrollTo({ left: 0, top: 0 })
   }
 
+  /**
+   * @description 监听页面宽度变化，如果变成手机模式，自动折叠侧边栏
+   */
   scope.run(() => {
-    // 如果是手机，默认折叠侧边栏
     watch(
       isMobile,
       (newValue) => {

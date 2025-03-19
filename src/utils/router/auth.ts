@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router'
 /**
- * 根据用户权限判断用户是否拥有访问该路由的权限
+ * @description 根据用户权限判断用户是否拥有访问该路由的权限
  * @param route - 当前路由
  * @param role - 用户权限
  */
@@ -19,6 +19,11 @@ export function hasPermission(route: RouteRecordRaw, role: string[]) {
   // * 路由指定的角色包含任一登录用户角色则判定有权限
   return role.some(item => routeRole.includes(item))
 }
+/**
+ * @description 将嵌套路由的子路由过滤掉没有权限的路由
+ * @param routes - 所有路由
+ * @param role - 用户权限
+ */
 export function filterAsyncRoutes(routes: RouteRecordRaw[] = [], role: string[] = []) {
   const ret: RouteRecordRaw[] = []
   routes.forEach((route) => {

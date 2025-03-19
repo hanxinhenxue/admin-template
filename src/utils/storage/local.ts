@@ -1,6 +1,6 @@
 import { crypto } from '../crypto'
 /**
- * @desc 本地存储，local加密，默认存储7天
+ * @description 本地存储，local加密，默认存储7天
  */
 interface StorageData<T = unknown> {
   data: T
@@ -11,7 +11,7 @@ class CreateLocalStorage {
   private readonly DEFAULT_CACHE_TIME = 60 * 60 * 24 * 7
 
   /**
-   * 设置 localStorage
+   * @description 设置 localStorage
    * @param key - 键名 value 存储的数据 expire 过期时间，单位为小时，默认7 * 24小时(7天)
    */
   set<T>(key: string, value: T, expire: number | null = this.DEFAULT_CACHE_TIME) {
@@ -24,7 +24,7 @@ class CreateLocalStorage {
   }
 
   /**
-   * 获取 localStorage 值
+   * @description 获取 localStorage 值
    * @param key - 键名
    * @result value | null
    */
@@ -59,7 +59,7 @@ class CreateLocalStorage {
   }
 
   /**
-   * 移除 localStorage 值
+   * @description 移除 localStorage 值
    * @param key - 键名
    */
   remove(key: string) {
@@ -67,7 +67,7 @@ class CreateLocalStorage {
   }
 
   /**
-   * 清空 localStorage
+   * @description 清空 localStorage
    */
   clear() {
     window.localStorage.clear()

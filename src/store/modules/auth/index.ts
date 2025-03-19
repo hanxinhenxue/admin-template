@@ -49,7 +49,7 @@ export const useAuthStore = defineStore('auth-store', () => {
     })
   }
   /**
-   * 处理登录后成功或失败的逻辑
+   * @description 处理登录后成功或失败的逻辑
    * @param loginToken - 返回的token
    */
   async function handleActionAfterLogin(loginToken: string) {
@@ -79,7 +79,7 @@ export const useAuthStore = defineStore('auth-store', () => {
     })
   }
   /**
-   * 登录
+   * @description 登录
    * @param username - 用户名
    * @param password - 密码加密
    * @param saveAccount - 存储账号

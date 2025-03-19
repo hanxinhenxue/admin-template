@@ -1,11 +1,11 @@
 import { crypto } from '../crypto'
 
 /**
- * @desc sessionStg存储，加密
+ * @description sessionStg存储，加密
  */
 class CreateSessionStorage {
   /**
-   * 存储 SessionStorage
+   * @description 存储 SessionStorage
    * @param key - 键名 value - 值，会被加密
    */
   set(key: string, value: unknown) {
@@ -14,7 +14,7 @@ class CreateSessionStorage {
   }
 
   /**
-   * 获取 SessionStorage
+   * @description 获取 SessionStorage
    * @param key - 键名
    * @result value | null
    */
@@ -35,7 +35,7 @@ class CreateSessionStorage {
   }
 
   /**
-   * 移除 SessionStorage 值
+   * @description 移除 SessionStorage 值
    * @param key - 键名
    */
   remove(key: string) {
@@ -43,7 +43,7 @@ class CreateSessionStorage {
   }
 
   /**
-   * 清空SessionStorage
+   * @description 清空SessionStorage
    */
   clear() {
     window.sessionStorage.clear()

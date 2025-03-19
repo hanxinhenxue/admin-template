@@ -9,7 +9,7 @@ import { ConfigCompressPlugin } from './compress'
 import { ConfigSvgIconsPlugin } from './svgIcons'
 
 /**
- * vite插件
+ * @description vite插件注入
  * @param viteEnv - 环境变量配置
  * @param isBuild - 是否是生产阶段
  */

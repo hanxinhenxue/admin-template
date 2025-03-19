@@ -4,7 +4,7 @@ import { addColorAlpha, getColorPalette, localStg, toggleHtmlClass } from '@/uti
 import { defu } from 'defu'
 
 /**
- * 初始化 主题设置
+ * @description 初始化主题设置
  */
 export function initThemeSettings() {
   const isProd = import.meta.env.PROD
@@ -19,17 +19,16 @@ export function initThemeSettings() {
 
   return settings
 }
-type NaiveColorScene = '' | 'Suppl' | 'Hover' | 'Pressed' | 'Active';
-type NaiveColorKey = `${App.Theme.ThemeColorKey}Color${NaiveColorScene}`;
-type NaiveThemeColor = Partial<Record<NaiveColorKey, string>>;
+type NaiveColorScene = '' | 'Suppl' | 'Hover' | 'Pressed' | 'Active'
+type NaiveColorKey = `${App.Theme.ThemeColorKey}Color${NaiveColorScene}`
+type NaiveThemeColor = Partial<Record<NaiveColorKey, string>>
 interface NaiveColorAction {
-  scene: NaiveColorScene;
-  handler: (color: string) => string;
+  scene: NaiveColorScene
+  handler: (color: string) => string
 }
 /**
- * Get naive theme colors
- *
- * @param colors Theme colors
+ * @description 获取naive主题颜色
+ * @param colors 主题色
  */
 function getNaiveThemeColors(colors: App.Theme.ThemeColor) {
   const colorActions: NaiveColorAction[] = [
@@ -56,9 +55,8 @@ function getNaiveThemeColors(colors: App.Theme.ThemeColor) {
 }
 
 /**
- * Get naive theme
- *
- * @param colors Theme colors
+ * @description 获取naive主题配置
+ * @param colors 主题色
  */
 export function getNaiveThemeOverrides(colors: App.Theme.ThemeColor) {
   const { primary: colorLoading } = colors
@@ -75,19 +73,29 @@ export function getNaiveThemeOverrides(colors: App.Theme.ThemeColor) {
   return theme
 }
 
+/**
+ * @description 切换css暗黑模式
+ * @param darkMode 是否是暗黑模式
+ */
 export function toggleCssDarkMode(darkMode = false) {
-  const { add, remove } = toggleHtmlClass('dark');
+  const { add, remove } = toggleHtmlClass('dark')
 
   if (darkMode) {
-    add();
-  } else {
-    remove();
+    add()
+  }
+  else {
+    remove()
   }
 }
 
+/**
+ * @description 切换css色弱、灰色模式
+ * @param grayscaleMode 是否是灰色模式
+ * @param colourWeakness 是否是色弱模式
+ */
 export function toggleAuxiliaryColorModes(grayscaleMode = false, colourWeakness = false) {
-  const htmlElement = document.documentElement;
+  const htmlElement = document.documentElement
   htmlElement.style.filter = [grayscaleMode ? 'grayscale(100%)' : '', colourWeakness ? 'invert(80%)' : '']
     .filter(Boolean)
-    .join(' ');
+    .join(' ')
 }

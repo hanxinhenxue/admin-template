@@ -2,7 +2,6 @@ import type { App, Directive, DirectiveBinding } from 'vue'
 
 /**
  * @description 按钮级别显示，根据userinfo中的permissions按钮级别权限
- *
  */
 import { usePermission } from '@/hooks'
 

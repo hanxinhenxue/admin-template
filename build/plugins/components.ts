@@ -1,8 +1,6 @@
 /**
- * @name  AutoRegistryComponents
- * @description 按需加载，自动引入组件
+ * @description UI组件库自动引入
  */
-
 import IconsResolver from 'unplugin-icons/resolver' // 自动引入图标
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'

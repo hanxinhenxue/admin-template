@@ -8,6 +8,7 @@
       <div class="h-full flex-center">
         <ToggleMode />
         <FullScreen />
+        <ThemeSetting />
         <UserAvatar />
       </div>
     </header>
@@ -19,6 +20,7 @@ import { useAppStore, useThemeStore } from '@/store'
 import BreadCrumb from './components/bread-crumb.vue'
 import FullScreen from './components/full-screen.vue'
 import MenuCollapse from './components/menu-collapse.vue'
+import ThemeSetting from './components/theme-setting.vue'
 import ToggleMode from './components/toggle-mode.vue'
 import UserAvatar from './components/user-avatar.vue'
 

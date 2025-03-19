@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 
 /**
- * boolean组合式函数
+ * @description boolean组合式函数
  * @param initValue 初始值
  */
 export default function useBoolean(initValue = false) {

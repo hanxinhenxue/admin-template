@@ -7,6 +7,7 @@ import type { RequestConfig } from './type'
 // 最大重连次数
 const MAX_RETRY = 3
 
+/** @description axios出错后重连 */
 export async function retry(instance: AxiosInstance, config: RequestConfig) {
   let { retry = MAX_RETRY, __retryCount = 0 } = config
   if (__retryCount < retry) {

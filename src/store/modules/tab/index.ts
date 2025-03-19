@@ -11,26 +11,43 @@ export const useTabStore = defineStore('tab', () => {
   const theme = useThemeStore()
 
   const activeTabIndex = computed(() => tabs.value.findIndex(tab => tab.fullPath === activeTab.value))
-
+  /**
+   * @description 重置tabStore
+   */
   function resetTabStore() {
     const tabStore = useTabStore()
     clearTabRoutes()
     tabStore.$reset()
   }
+  /**
+   * @description 缓存tabStore
+   */
   function cacheTabRoutes() {
     if (!theme.tab.cache)
       return
     localStg.set('multiTabRoutes', tabs.value)
   }
+  /**
+   * @description 设置当前激活的tab
+   * @param fullPath - 路由fullPath
+   */
   function setActiveTab(fullPath: string) {
     activeTab.value = fullPath
   }
+  /**
+   * @description 设置当前激活的tab的title
+   * @param title - tab的title
+   */
   function setActiveTabTitle(title: string) {
     const item = tabs.value.find(tab => tab.fullPath === activeTab.value)
     if (item) {
       item.meta.title = title
     }
   }
+  /**
+   * @description 添加tab
+   * @param route - 路由
+   */
   function addTab(route: App.Global.TabRoute) {
     const tab = getTabRouteByVueRoute(route)
     if (!isInTabRoutes(tabs.value, tab.fullPath)) {
@@ -41,7 +58,7 @@ export const useTabStore = defineStore('tab', () => {
     }
   }
   /**
-   * 删除多页签
+   * @description 删除多页签
    * @param fullPath - 路由fullPath
    */
   async function removeTab(fullPath: string) {
@@ -65,7 +82,7 @@ export const useTabStore = defineStore('tab', () => {
     }
   }
   /**
-   * 清空多页签，保留选中的tabs和当前激活的tab
+   * @description 清空多页签，保留选中的tabs和当前激活的tab
    * @param excludes - 保留的多页签path
    */
   async function clearTab(excludes: string[] = []) {
@@ -74,7 +91,7 @@ export const useTabStore = defineStore('tab', () => {
     tabs.value = remainTabs
   }
   /**
-   * 清除左边多页签
+   * @description 清除左边多页签
    * @param fullPath - 路由fullPath
    */
   function clearLeftTab(fullPath: string) {
@@ -85,7 +102,7 @@ export const useTabStore = defineStore('tab', () => {
     }
   }
   /**
-   * 清除右边多页签
+   * @description 清除右边多页签
    * @param fullPath - 路由fullPath
    */
   function clearRightTab(fullPath: string) {
@@ -95,12 +112,14 @@ export const useTabStore = defineStore('tab', () => {
       clearTab(excludes)
     }
   }
-  /** 清除所有多页签 */
+  /**
+   * @description 清除所有多页签
+   */
   function clearAllTab() {
     clearTab()
   }
   /**
-   * 点击单个tab
+   * @description 点击单个tab
    * @param fullPath - 路由fullPath
    */
   async function handleClickTab(fullPath: string) {
@@ -110,7 +129,10 @@ export const useTabStore = defineStore('tab', () => {
       setActiveTab(fullPath)
     }
   }
-  /** 初始化Tab状态 */
+  /**
+   * @description 初始化tabStore
+   * @param currentRoute - 路由
+   */
   function iniTabStore(currentRoute: App.Global.TabRoute) {
     const defaultTabs = theme.tab.cache ? getTabRoutes() : []
 
@@ -127,6 +149,9 @@ export const useTabStore = defineStore('tab', () => {
     setActiveTab(currentRoute.fullPath!)
   }
 
+  /**
+   * @description 缓存页签逻辑
+   */
   useEventListener(window, 'beforeunload', () => {
     cacheTabRoutes()
   })

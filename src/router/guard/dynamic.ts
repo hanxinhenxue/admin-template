@@ -2,7 +2,7 @@ import type { NavigationGuardNext, RouteLocationNormalizedGeneric, RouteLocation
 import { useAuthStore, useRouteStore } from '@/store'
 
 /**
- * 动态路由
+ * @description 创建导航守卫
  */
 export async function createPermissionGuard(to: RouteLocationNormalizedGeneric, _from: RouteLocationNormalizedLoadedGeneric, next: NavigationGuardNext) {
   const authStore = useAuthStore()
