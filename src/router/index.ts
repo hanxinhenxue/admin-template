@@ -1,5 +1,5 @@
 import type { App } from 'vue'
-import type { RouterHistory } from 'vue-router'
+import type { RouteRecordRaw, RouterHistory } from 'vue-router'
 import { useAuthStore, useRouteStore } from '@/store'
 import { createMemoryHistory, createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import { setupRouterGuards } from './guard'
@@ -47,8 +47,8 @@ export async function addDynamicRoutes() {
   try {
     const useRoute = useRouteStore()
     const accessRoutes = useRoute.generateRoutes(authStore.userPermissions)
-    accessRoutes.forEach((route) => {
-      !router.hasRoute(route.name) && router.addRoute(route)
+    accessRoutes.value.forEach((route: RouteRecordRaw) => {
+      !router.hasRoute(route.name!) && router.addRoute(route)
     })
     router.hasRoute(EMPTY_ROUTE.name) && router.removeRoute(EMPTY_ROUTE.name)
     router.addRoute(CATCH_ROUTE)
@@ -62,15 +62,15 @@ export async function resetRouter() {
   router.getRoutes().forEach((route) => {
     const name = route.name
     if (!basicRouteNames.includes(name)) {
-      router.removeRoute(name)
+      router.removeRoute(name!)
     }
   })
 }
-export function getRouteNames(routes) {
+export function getRouteNames(routes: RouteRecordRaw[]) {
   return routes.map(route => getRouteName(route)).flat(1)
 }
 
-function getRouteName(route) {
+function getRouteName(route: RouteRecordRaw) {
   const names = [route.name]
   if (route.children && route.children.length) {
     names.push(...route.children.map(item => getRouteName(item)).flat(1))

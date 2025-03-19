@@ -9,34 +9,35 @@ interface IconConfig {
   /** Icon color */
   color?: string
   /** Icon size */
-  fontSize?: number
+  iconFontSize?: number
 }
 
-type IconStyle = Partial<Pick<CSSStyleDeclaration, 'color' | 'fontSize'>>
+type IconStyle = Partial<Pick<CSSStyleDeclaration, 'color' | 'width' | 'height'>>
 /**
  * Svg icon render hook
  *
  * @param config 图标配置
  */
-export default function useSvgIcon(config: IconConfig) {
+export function useSvgIcon(config: IconConfig) {
   /**
    * Svg icon VNode
    *
    * @param config
    */
-  const { color, fontSize, icon, localIcon } = config
+  const { color, iconFontSize, icon, localIcon } = config
 
   const style: IconStyle = {}
 
   if (color) {
     style.color = color
   }
-  if (fontSize) {
-    style.fontSize = `${fontSize}px`
+  if (iconFontSize) {
+    style.width = `${iconFontSize}px`
+    style.height = `${iconFontSize}px`
   }
 
   if (!icon && !localIcon) {
-    return undefined
+    return () => null
   }
 
   return () => h(SvgIcon, { icon, localIcon, style })

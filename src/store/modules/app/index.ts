@@ -62,5 +62,6 @@ export const useAppStore = defineStore('app-store', () => {
     siderCollapse,
     setSiderCollapse,
     toggleSiderCollapse,
+    isMobile,
   }
 })

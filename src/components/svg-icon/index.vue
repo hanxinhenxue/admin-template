@@ -18,7 +18,7 @@ import { Icon } from '@iconify/vue'
  */
 defineOptions({ name: 'SvgIcon' })
 
-const { icon, localIcon } = defineProps<Props>()
+const { icon, localIcon, size = 20 } = defineProps<Props>()
 
 interface Props {
   icon?: string
@@ -33,10 +33,21 @@ const symbolId = computed(() => {
   return `#${prefix}-${localIcon}`
 })
 
-const bindAttrs = computed<{ class: string, style: string }>(() => ({
-  class: attrs.class as string,
-  style: attrs.style as string,
-}))
+const bindAttrs = computed<{ class: string, style: Record<string, string> }>(() => {
+  const defaultStyle: Record<string, string> = {}
+  const style = attrs.style || defaultStyle // 确保 style 是对象类型
+  const classValue = attrs.class ? String(attrs.class) : ''
+  return {
+    class: classValue,
+    style: {
+      ...defaultStyle,
+      ...style, // 安全扩展
+      width: `${String(size).replace('px', '')}px`,
+      height: `${String(size).replace('px', '')}px`,
+    },
+    ...attrs,
+  }
+})
 
 const renderLocalIcon = computed(() => localIcon || !icon)
 </script>

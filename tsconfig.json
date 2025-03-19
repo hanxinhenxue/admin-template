@@ -23,6 +23,6 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true
   },
-  "include": ["./**/*.ts", "./**/*.tsx"],
+  "include": ["typings/**/*", "./**/*.ts", "./**/*.tsx"],
   "exclude": ["node_modules", "dist"]
 }

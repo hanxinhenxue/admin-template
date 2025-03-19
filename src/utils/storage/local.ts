@@ -48,7 +48,6 @@ class CreateLocalStorage {
         this.remove(key)
         return null
       }
-
       return data
     }
     catch (error) {

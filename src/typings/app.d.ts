@@ -4,47 +4,36 @@ declare namespace App {
   namespace Theme {
     type ColorPaletteNumber = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 950
 
-    type ThemeScheme = 'dark' | 'light' | 'auto'
-
     type ThemeLayoutMode = 'vertical' | 'horizontal' | 'vertical-mix' | 'horizontal-mix'
 
     /** 主题设置 */
     interface ThemeSetting {
-    /** 主题模式 */
-      themeScheme: ThemeScheme
+    /** 暗黑模式 */
+      darkMode: boolean
       /** 灰色模式 */
       grayscale: boolean
       /** 视弱模式 */
       colourWeakness: boolean
-      /** 推荐颜色 */
-      recommendColor: boolean
       /** 主题色 */
       themeColor: string
+      /** 主题色列表 */
+      themeColorList: string[]
       /** 其他颜色 */
       otherColor: OtherColor
       /** info颜色是否和主题色相同 */
       isInfoFollowPrimary: boolean
-      /** 重置缓存策略 close 关闭页面 refresh 刷新页面 */
-      resetCacheStrategy: 'close' | 'refresh'
-      /** 页面布局 */
-      layout: {
-      /** 布局模式 */
-        mode: ThemeLayoutMode
-        /** 滚动模式 */
-        scrollMode: 'wrapper' | 'content'
-        /* 是否反转一级菜单与子级菜单位置 */
-        reverseHorizontalMix: boolean
-      }
       /** 页面 */
       page: {
       /** 页面切换动画 */
         animate: boolean
         /** 动画模式 fade-slide 滑动 ... */
         animateMode: string
+      /** 页面切换动画类型枚举 */
+        animateModeList: Record<string, string>[]
       }
       /** 头部 */
       header: {
-      /** 头部高度 */
+        /** 头部高度 */
         height: number
         /** 面包屑 */
         breadcrumb: {
@@ -63,10 +52,10 @@ declare namespace App {
         /** 页签高度 */
         height: number
         /** 页签模式 */
-        mode: 'button' | 'chrome'
+        mode: string
+        /** 页签模式列表 */
+        modeList: Record<string, string>[]
       }
-      /** 固定头部和标签栏 */
-      fixedHeaderAndTab: boolean
       /** 侧边栏 */
       sider: {
       /** 深色侧边栏 */
@@ -75,12 +64,6 @@ declare namespace App {
         width: number
         /** 侧边栏折叠宽度 */
         collapsedWidth: number
-        /** 混合布局侧边栏宽度 'vertical-mix' or 'horizontal-mix' */
-        mixWidth: number
-        /** 混合布局侧边栏折叠宽度 'vertical-mix' or 'horizontal-mix' */
-        mixCollapsedWidth: number
-        /** 混合布局子菜单宽度 'vertical-mix' or 'horizontal-mix' */
-        mixChildMenuWidth: number
       }
       /** 页脚 */
       footer: {
@@ -90,8 +73,6 @@ declare namespace App {
         fixed: boolean
         /** 页脚高度 */
         height: number
-        /** 底部局右 'horizontal-mix' */
-        right: boolean
       }
       /** 水印 */
       watermark: {
@@ -99,13 +80,6 @@ declare namespace App {
         visible: boolean
         /** 水印文字 */
         text: string
-      }
-      /** define some theme settings tokens, will transform to css variables */
-      tokens: {
-        light: ThemeSettingToken
-        dark?: {
-          [K in keyof ThemeSettingToken]?: Partial<ThemeSettingToken[K]>;
-        }
       }
     }
 
@@ -160,21 +134,10 @@ declare namespace App {
   namespace Global {
     type RouteLocationNormalizedLoaded = import('vue-router').RouteLocationNormalizedLoaded
     type RouteLocationAsRelativeGeneric = import('vue-router').RouteLocationAsRelativeGeneric
-    interface Menu {
-      /**
-       * 菜单key等于route key
-       */
+    type MenuOption = import('naive-ui').MenuOption
+    type Menu = MenuOption & {
+      order: number
       key: string
-      /** 菜单名字 */
-      label: string
-      /** 完整的路由 */
-      routeKey: string | symbol | undefined
-      /** 路由路径 */
-      routePath: string | symbol | undefined
-      /** 图标 */
-      icon?: () => VNode
-      /** 子菜单 */
-      children?: Menu[]
     }
 
     type Breadcrumb = Omit<Menu, 'children'> & {

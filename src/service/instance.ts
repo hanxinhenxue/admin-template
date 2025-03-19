@@ -1,5 +1,6 @@
 import type { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import type { RequestConfig } from './type'
+import { useAuthStore } from '@/store'
 import axios from 'axios'
 import AbortRequest from './abort-request'
 import { handleError } from './error-msg'
@@ -38,6 +39,10 @@ export default class CustomAxiosInstance {
             config.headers!['Content-Type'] = 'application/json'
           }
         }
+        const authStore = useAuthStore()
+        if (authStore.token) {
+          config.headers.Authorization = `Bearer ${authStore.token}`
+        }
 
         config.data = await autoFormatParamsInterceptor(config.data, contentType)
 
@@ -63,6 +68,7 @@ export default class CustomAxiosInstance {
         if (this.successCodes.includes(code)) {
           return Promise.resolve(data)
         }
+        handleError(data)
         return Promise.reject(data)
       },
       (err: AxiosError) => {

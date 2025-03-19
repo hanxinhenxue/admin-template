@@ -1,12 +1,14 @@
 import { router } from '@/router'
 import { useRouteStore, useThemeStore } from '@/store'
 import { localStg } from '@/utils'
+import { useEventListener } from '@vueuse/core'
 import { defineStore } from 'pinia'
 import { clearTabRoutes, getIndexInTabRoutes, getIndexInTabRoutesByRouteName, getTabRouteByVueRoute, getTabRoutes, isInTabRoutes } from './shared'
 
 export const useTabStore = defineStore('tab', () => {
   const tabs = shallowRef<App.Global.TabRoute[]>([])
   const activeTab = ref<string>()
+  const theme = useThemeStore()
 
   const activeTabIndex = computed(() => tabs.value.findIndex(tab => tab.fullPath === activeTab.value))
 
@@ -16,6 +18,8 @@ export const useTabStore = defineStore('tab', () => {
     tabStore.$reset()
   }
   function cacheTabRoutes() {
+    if (!theme.tab.cache)
+      return
     localStg.set('multiTabRoutes', tabs.value)
   }
   function setActiveTab(fullPath: string) {
@@ -108,8 +112,6 @@ export const useTabStore = defineStore('tab', () => {
   }
   /** 初始化Tab状态 */
   function iniTabStore(currentRoute: App.Global.TabRoute) {
-    const theme = useThemeStore()
-
     const defaultTabs = theme.tab.cache ? getTabRoutes() : []
 
     const index = getIndexInTabRoutesByRouteName(defaultTabs, currentRoute.name)
@@ -124,6 +126,10 @@ export const useTabStore = defineStore('tab', () => {
     tabs.value = defaultTabs
     setActiveTab(currentRoute.fullPath!)
   }
+
+  useEventListener(window, 'beforeunload', () => {
+    cacheTabRoutes()
+  })
   return {
     tabs,
     activeTab,

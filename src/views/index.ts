@@ -2,7 +2,7 @@ import type { RouteRecordRaw } from 'vue-router'
 /**
  * @description 权限路由
  */
-import { BaseLayout } from '@/layouts'
+import BaseLayout from '@/layouts/base-layout/index.vue'
 /**
  * @param hidden 是否在侧边栏隐藏
  * @param singleShow 单个孩子是否显示父组件
@@ -12,6 +12,7 @@ import { BaseLayout } from '@/layouts'
  * @param meta.title 菜单名称，配置了就会显示面包屑
  * @param meta.icon 菜单在线图标
  * @param meta.localIcon 菜单本地svg图标
+ * @param meta.iconFontSize 图标尺寸，尽量选等比例图标
  * @param meta.image 菜单本地图片
  * @param meta.imageStyle 菜单本地图片宽高等属性
  * @param meta.keepAlive 缓存该路由 name要和组件名相同
@@ -64,6 +65,7 @@ const routes: RouteRecordRaw[] = [
       sort: 1,
       title: '常用工具',
       localIcon: 'tool',
+      iconFontSize: 20,
     },
     children: [
       {

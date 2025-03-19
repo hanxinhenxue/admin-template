@@ -2,7 +2,7 @@ import type { RouteMeta } from 'vue-router'
 import { NBadge } from 'naive-ui'
 import { h } from 'vue'
 
-export function renderExtra(extra: RouteMeta) {
+export function renderExtra(extra: RouteMeta = {}) {
   if (extra?.dot) {
     if (typeof extra.dot === 'boolean') {
       return () =>
@@ -20,7 +20,7 @@ export function renderExtra(extra: RouteMeta) {
         })
     }
   }
-  return null
+  return () => null
 }
 
 export function isExternal(path: string) {

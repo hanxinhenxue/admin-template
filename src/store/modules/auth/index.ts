@@ -86,14 +86,17 @@ export const useAuthStore = defineStore('auth-store', () => {
    */
   async function loginHandle(username: string, password: string, saveAccount: boolean) {
     startLoading()
-    const { code, data } = await fetchToken({ username, password })
-    if (code === 200 && data) {
-      if (saveAccount) {
-        localStg.set('loginInfo', { username })
+    fetchToken({ username, password }).then(({ code, data }) => {
+      if (code === 200 && data) {
+        if (saveAccount) {
+          localStg.set('loginInfo', { username })
+        }
+        handleActionAfterLogin(data.token)
+        endLoading()
       }
-      await handleActionAfterLogin(data)
-    }
-    endLoading()
+    }).finally(() => {
+      endLoading()
+    })
   }
 
   return {

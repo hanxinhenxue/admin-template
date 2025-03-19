@@ -1,4 +1,5 @@
 import AppLoading from '@/components/app-loading/index.vue'
+import { setupDirectives } from '@/directives'
 import { setupAssets } from '@/plugins'
 import { setupRouter } from '@/router'
 import { setupStore } from '@/store'
@@ -16,6 +17,8 @@ async function setupApp() {
   const app = createApp(App)
 
   setupStore(app)
+
+  setupDirectives(app)
 
   await setupRouter(app)
 

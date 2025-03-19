@@ -1,38 +1,18 @@
-import { getPaletteColorByNumber, localStg } from '@/utils'
-import { useEventListener, usePreferredColorScheme } from '@vueuse/core'
+import { localStg } from '@/utils'
+import { useEventListener } from '@vueuse/core'
 import { defineStore } from 'pinia'
+import { darkTheme } from 'naive-ui'
 import {
-  addThemeVarsToGlobal,
-  createThemeToken,
-  getNaiveTheme,
-  initThemeSettings,
-  toggleAuxiliaryColorModes,
-  toggleCssDarkMode,
+  getNaiveThemeOverrides, initThemeSettings, toggleCssDarkMode, toggleAuxiliaryColorModes
 } from './shared'
 
 /** Theme store */
 export const useThemeStore = defineStore('theme-store', () => {
   const scope = effectScope()
-  const osTheme = usePreferredColorScheme()
 
   /** Theme settings */
   const settings: Ref<App.Theme.ThemeSetting> = ref(initThemeSettings())
 
-  /** Dark mode */
-  const darkMode = computed(() => {
-    if (settings.value.themeScheme === 'auto') {
-      return osTheme.value === 'dark'
-    }
-    return settings.value.themeScheme === 'dark'
-  })
-
-  /** grayscale mode */
-  const grayscaleMode = computed(() => settings.value.grayscale)
-
-  /** colourWeakness mode */
-  const colourWeaknessMode = computed(() => settings.value.colourWeakness)
-
-  /** Theme colors */
   const themeColors = computed(() => {
     const { themeColor, otherColor, isInfoFollowPrimary } = settings.value
     const colors: App.Theme.ThemeColor = {
@@ -43,30 +23,42 @@ export const useThemeStore = defineStore('theme-store', () => {
     return colors
   })
 
-  /** Naive theme */
-  const naiveTheme = computed(() => getNaiveTheme(themeColors.value, settings.value.recommendColor))
+  const darkMode = computed(() => settings.value.darkMode)
 
-  /**
-   * Settings json
-   *
-   * It is for copy settings
-   */
-  const settingsJson = computed(() => JSON.stringify(settings.value))
+  const grayscaleMode = computed(() => settings.value.grayscale)
 
+  const colourWeaknessMode = computed(() => settings.value.colourWeakness)
+
+  const naiveThemeOverrides = computed(() => getNaiveThemeOverrides(themeColors.value))
+
+  const naiveTheme = computed(() => settings.value.darkMode ? darkTheme : undefined)
+
+  const pageAnimateMode = computed(() => settings.value.page.animate ? settings.value.page.animateMode : '')
+
+  function toggleDarkMode() {
+    settings.value.darkMode = !settings.value.darkMode
+  }
+
+  function setDarkMode(mode: boolean) {
+    settings.value.darkMode = mode
+  }
   /** Reset store */
-  function resetStore() {
+  function resetThemeStore() {
     const themeStore = useThemeStore()
-
+    localStg.remove('themeSettings')
     themeStore.$reset()
   }
 
-  /**
-   * Set theme scheme
-   *
-   * @param themeScheme
-   */
-  function setThemeScheme(themeScheme: App.Theme.ThemeScheme) {
-    settings.value.themeScheme = themeScheme
+  function setPageIsAnimate(animate: boolean) {
+    settings.value.page.animate = animate
+  }
+
+  function setPageAnimateMode(mode: string) {
+    settings.value.page.animateMode = mode
+  }
+
+  function setSiderInverted(isInverted: boolean) {
+    settings.value.sider.inverted = isInverted
   }
 
   /**
@@ -87,70 +79,35 @@ export const useThemeStore = defineStore('theme-store', () => {
     settings.value.colourWeakness = isColourWeakness
   }
 
-  /** Toggle theme scheme */
-  function toggleThemeScheme() {
-    const themeSchemes: App.Theme.ThemeScheme[] = ['light', 'dark', 'auto']
-
-    const index = themeSchemes.findIndex(item => item === settings.value.themeScheme)
-
-    const nextIndex = index === themeSchemes.length - 1 ? 0 : index + 1
-
-    const nextThemeScheme = themeSchemes[nextIndex]
-
-    setThemeScheme(nextThemeScheme)
-  }
-
-  /**
-   * Update theme colors
-   *
-   * @param key Theme color key
-   * @param color Theme color
-   */
-  function updateThemeColors(key: App.Theme.ThemeColorKey, color: string) {
-    let colorValue = color
-
-    if (settings.value.recommendColor) {
-      // get a color palette by provided color and color name, and use the suitable color
-
-      colorValue = getPaletteColorByNumber(color, 500, true)
-    }
-
-    if (key === 'primary') {
-      settings.value.themeColor = colorValue
-    }
-    else {
-      settings.value.otherColor[key] = colorValue
-    }
-  }
-
   /**
    * Set theme layout
    *
    * @param mode Theme layout mode
    */
-  function setThemeLayout(mode: App.Theme.ThemeLayoutMode) {
-    settings.value.layout.mode = mode
+  function setThemeColor(themeColor: string) {
+    settings.value.themeColor = themeColor
   }
 
-  /** Setup theme vars to global */
-  function setupThemeVarsToGlobal() {
-    const { themeTokens, darkThemeTokens } = createThemeToken(
-      themeColors.value,
-      settings.value.tokens,
-      settings.value.recommendColor,
-    )
-    addThemeVarsToGlobal(themeTokens, darkThemeTokens)
-  }
-  /**
-   * Set layout reverse horizontal mix
-   *
-   * @param reverse Reverse horizontal mix
-   */
-  function setLayoutReverseHorizontalMix(reverse: boolean) {
-    settings.value.layout.reverseHorizontalMix = reverse
+  function setHeaderCrumbBisible(visible: boolean) {
+    settings.value.header.breadcrumb.visible = visible
   }
 
-  /** Cache theme settings */
+  function setHeaderCrumbIconVisible(showIcon: boolean) {
+    settings.value.header.breadcrumb.showIcon = showIcon
+  }
+
+  function setTabVisible(visible: boolean) {
+    settings.value.tab.visible = visible
+  }
+
+  function setTabMode(mode: string) {
+    settings.value.tab.mode = mode
+  }
+
+  function setTabIsCache(cache: boolean) {
+    settings.value.tab.cache = cache
+  }
+
   function cacheThemeSettings() {
     const isProd = import.meta.env.PROD
 
@@ -183,16 +140,6 @@ export const useThemeStore = defineStore('theme-store', () => {
       },
       { immediate: true },
     )
-
-    // themeColors change, update css vars and storage theme color
-    watch(
-      themeColors,
-      (val) => {
-        setupThemeVarsToGlobal()
-        localStg.set('themeColor', val.primary)
-      },
-      { immediate: true },
-    )
   })
 
   /** On scope dispose */
@@ -202,17 +149,9 @@ export const useThemeStore = defineStore('theme-store', () => {
 
   return {
     ...toRefs(settings.value),
-    darkMode,
     themeColors,
     naiveTheme,
-    settingsJson,
     setGrayscale,
     setColourWeakness,
-    resetStore,
-    setThemeScheme,
-    toggleThemeScheme,
-    updateThemeColors,
-    setThemeLayout,
-    setLayoutReverseHorizontalMix,
   }
 })
