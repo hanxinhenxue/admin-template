@@ -13,9 +13,7 @@
 import { useSvgIcon } from '@/hooks'
 import { useThemeStore } from '@/store'
 
-defineOptions({
-  name: 'BreadCrumb',
-})
+defineOptions({ name: 'BreadCrumb' })
 
 const router = useRouter()
 const route = useRoute()

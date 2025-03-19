@@ -7,37 +7,24 @@ import { useSvgIcon } from '@/hooks'
 import { useAppStore, useTabStore } from '@/store'
 
 defineOptions({ name: 'ContextMenu' })
-const props = defineProps({
-  // 右键菜单可见性
-  visible: {
-    type: Boolean,
-    default: false,
-  },
-  // 当前路由路径
-  currentPath: {
-    type: String,
-    default: '',
-  },
-  // 右键菜单x坐标
-  x: {
-    type: Number,
-    default: 0,
-  },
-  // 右键菜单y坐标
-  y: {
-    type: Number,
-    default: 0,
-  },
-})
+
+const { visible = false, currentPath = '', x = 0, y = 0 } = defineProps<Props>()
 
 const emit = defineEmits(['update:visible'])
+
+interface Props {
+  visible?: boolean
+  currentPath?: string
+  x?: number
+  y?: number
+}
 
 const app = useAppStore()
 const tab = useTabStore()
 
 const dropdownVisible = computed({
   get() {
-    return props.visible
+    return visible
   },
   set(visible) {
     emit('update:visible', visible)
@@ -52,7 +39,7 @@ const options = computed(() => [
   {
     label: '重新加载',
     key: 'reload-current',
-    disabled: props.currentPath !== tab.activeTab,
+    disabled: currentPath !== tab.activeTab,
     icon: useSvgIcon({ icon: 'ant-design:reload-outlined' }),
   },
   {
@@ -93,25 +80,25 @@ const actionMap = new Map([
   [
     'close-current',
     () => {
-      tab.removeTab(props.currentPath)
+      tab.removeTab(currentPath)
     },
   ],
   [
     'close-other',
     () => {
-      tab.clearTab([props.currentPath])
+      tab.clearTab([currentPath])
     },
   ],
   [
     'close-left',
     () => {
-      tab.clearLeftTab(props.currentPath)
+      tab.clearLeftTab(currentPath)
     },
   ],
   [
     'close-right',
     () => {
-      tab.clearRightTab(props.currentPath)
+      tab.clearRightTab(currentPath)
     },
   ],
   [

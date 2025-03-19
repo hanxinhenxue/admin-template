@@ -10,9 +10,7 @@
 <script setup lang="ts">
 import { useThemeStore } from '@/store'
 
-defineOptions({
-  name: 'ToggleMode',
-})
+defineOptions({ name: 'ToggleMode' })
 
 const props = defineProps({
   // 是否动画

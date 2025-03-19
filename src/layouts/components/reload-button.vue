@@ -4,9 +4,9 @@
   </hover-container>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useLoading } from '@/hooks'
-	import { useRouteStore } from '@/store'
+import { useRouteStore } from '@/store'
 
 defineOptions({ name: 'ReloadButton' })
 

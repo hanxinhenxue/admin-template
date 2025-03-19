@@ -10,8 +10,8 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "paths": {
-      "@/*": ["src/*"],
-      "~/*": ["./*"]
+      "@": ["src"],
+      "~": ["./"]
     },
     "resolveJsonModule": true,
     "types": ["vite/client", "node", "unplugin-icons/types/vue", "naive-ui/volar"],
@@ -23,6 +23,6 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true
   },
-  "include": ["typings/**/*", "./**/*.ts", "./**/*.tsx"],
+  "include": ["src/typings/*", "./**/*.ts", "./**/*.tsx"],
   "exclude": ["node_modules", "dist"]
 }

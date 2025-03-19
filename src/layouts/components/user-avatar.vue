@@ -14,9 +14,7 @@ import avatar from '@/assets/svg-icons/avatar.svg'
 import { useSvgIcon } from '@/hooks'
 import { useAuthStore, useThemeStore } from '@/store'
 
-defineOptions({
-  name: 'UserAvatar',
-})
+defineOptions({ name: 'UserAvatar' })
 
 const userStore = useAuthStore()
 const themeStore = useThemeStore()

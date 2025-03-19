@@ -99,7 +99,3 @@ defineOptions({
 const appStore = useAppStore()
 const themeStore = useThemeStore()
 </script>
-
-<style lang="scss" scoped>
-
-</style>

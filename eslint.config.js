@@ -15,6 +15,7 @@ export default antfu(
         },
       ],
       '@typescript-eslint/no-empty-object-type': 'off',
+      'style/no-tabs': 'off',
     },
   },
 )

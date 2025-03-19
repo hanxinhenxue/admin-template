@@ -28,7 +28,7 @@ declare namespace App {
         animate: boolean
         /** 动画模式 fade-slide 滑动 ... */
         animateMode: string
-      /** 页面切换动画类型枚举 */
+        /** 页面切换动画类型枚举 */
         animateModeList: Record<string, string>[]
       }
       /** 头部 */

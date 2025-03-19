@@ -11,9 +11,7 @@
 import { useThemeStore } from '@/store'
 import { useFullscreen } from '@vueuse/core'
 
-defineOptions({
-  name: 'FullScreen',
-})
+defineOptions({ name: 'FullScreen' })
 const { isFullscreen, toggle } = useFullscreen()
 const themeStore = useThemeStore()
 </script>

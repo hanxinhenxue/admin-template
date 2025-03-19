@@ -21,10 +21,10 @@
 
 <script setup lang="ts">
 import { useAppStore, useThemeStore } from '@/store'
-import GlobalContent from '../components/global-content/index.vue'
-import GlobalHeader from '../components/global-header/index.vue'
-import GlobalSider from '../components/global-sider/index.vue'
-import GlobalTab from '../components/global-tab/index.vue'
+import GlobalContent from '../modules/global-content/index.vue'
+import GlobalHeader from '../modules/global-header/index.vue'
+import GlobalSider from '../modules/global-sider/index.vue'
+import GlobalTab from '../modules/global-tab/index.vue'
 
 defineOptions({
   name: 'BaseLayout',

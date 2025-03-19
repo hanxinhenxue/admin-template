@@ -7,12 +7,10 @@
   </hover-container>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useAppStore, useThemeStore } from '@/store'
 
-defineOptions({
-  name: 'MenuCollapse',
-})
+defineOptions({ name: 'MenuCollapse' })
 const appStore = useAppStore()
 const themeStore = useThemeStore()
 </script>

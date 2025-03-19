@@ -6,21 +6,15 @@
 
 <script setup lang="ts">
 defineOptions({ name: 'ColorCheckbox' })
-const props = defineProps({
-  /** 颜色 */
-  color: {
-    type: String,
-    default: '#ffffff',
-  },
-  /** 是否选中 */
-  checked: {
-    type: Boolean,
-    default: false,
-  },
-})
 
+const { color = '#ffffff', checked = false } = defineProps<{
+  /** 颜色 */
+  color?: string
+  /** 是否选中 */
+  checked?: boolean
+}>()
 const whiteColors = ['#ffffff', '#fff', 'rgb(255,255,255)']
-const isWhite = computed(() => whiteColors.includes(props.color))
+const isWhite = computed(() => whiteColors.includes(color))
 </script>
 
 <style scoped></style>

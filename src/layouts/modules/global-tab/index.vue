@@ -39,10 +39,9 @@
 import { useTabStore, useThemeStore } from '@/store'
 import { useElementBounding } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
-import BetterScroll from './components/better-scroll.vue'
-import ContextMenu from './components/context-menu.vue'
-import ReloadButton from './components/reload-button.vue'
-import TabItem from './components/tab-item.vue'
+import ContextMenu from '../../components/context-menu.vue'
+import ReloadButton from '../../components/reload-button.vue'
+import TabItem from '../../components/tab-item.vue'
 
 defineOptions({
   name: 'GlobalTab',

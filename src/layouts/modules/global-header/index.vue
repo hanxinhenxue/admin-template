@@ -15,14 +15,14 @@
   </DarkModeContainer>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { useAppStore, useThemeStore } from '@/store'
-import BreadCrumb from './components/bread-crumb.vue'
-import FullScreen from './components/full-screen.vue'
-import MenuCollapse from './components/menu-collapse.vue'
-import ThemeSetting from './components/theme-setting.vue'
-import ToggleMode from './components/toggle-mode.vue'
-import UserAvatar from './components/user-avatar.vue'
+import BreadCrumb from '../../components/bread-crumb.vue'
+import FullScreen from '../../components/full-screen.vue'
+import MenuCollapse from '../../components/menu-collapse.vue'
+import ThemeSetting from '../../components/theme-setting.vue'
+import ToggleMode from '../../components/toggle-mode.vue'
+import UserAvatar from '../../components/user-avatar.vue'
 
 defineOptions({
   name: 'LayoutHeader',

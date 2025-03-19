@@ -12,22 +12,24 @@ import { useElementSize } from '@vueuse/core'
 
 defineOptions({ name: 'BetterScroll' })
 
-const props = defineProps({
+const { options } = defineProps<Props>()
+
+interface Props {
   options: {
-    type: Object,
-    default: () => ({}),
-  },
-})
+    scrollY: boolean
+    [key: string]: any
+  }
+}
 
 const bsWrap = ref()
 const instance = ref()
 const bsContent = ref()
-const isScrollY = computed(() => Boolean(props.options.scrollY))
+const isScrollY = computed(() => Boolean(options.scrollY))
 
 function initBetterScroll() {
   if (!bsWrap.value)
     return
-  instance.value = new BScroll(bsWrap.value, props.options)
+  instance.value = new BScroll(bsWrap.value, options)
 }
 
 // 滚动元素发生变化，刷新BS
@@ -46,4 +48,4 @@ onMounted(() => {
 defineExpose({ instance })
 </script>
 
-<style scoped></style>
+  <style scoped></style>

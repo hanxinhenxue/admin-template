@@ -10,12 +10,11 @@ declare module 'vue' {
   export interface GlobalComponents {
     AppLoading: typeof import('./../components/app-loading/index.vue')['default']
     AppProvider: typeof import('./../components/app-provider/index.vue')['default']
+    BetterScroll: typeof import('./../components/better-scroll/index.vue')['default']
     DarkModeContainer: typeof import('./../components/dark-mode-container/index.vue')['default']
-    HelloWorld: typeof import('./../components/HelloWorld.vue')['default']
     HoverContainer: typeof import('./../components/hover-container/index.vue')['default']
     NBreadcrumb: typeof import('naive-ui')['NBreadcrumb']
     NBreadcrumbItem: typeof import('naive-ui')['NBreadcrumbItem']
-    NButton: typeof import('naive-ui')['NButton']
     NColorPicker: typeof import('naive-ui')['NColorPicker']
     NDialogProvider: typeof import('naive-ui')['NDialogProvider']
     NDivider: typeof import('naive-ui')['NDivider']

@@ -7,7 +7,7 @@
       @before-leave="appStore.setContentXScrollable(true)"
       @after-enter="appStore.setContentXScrollable(false)"
     >
-      <KeepAlive :include="routeStore.cacheRoutes">
+      <KeepAlive :include="routeStore.cacheRoutes as string[]">
         <component
           :is="Component"
           v-if="appStore.reloadFlag"
