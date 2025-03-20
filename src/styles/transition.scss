@@ -80,3 +80,29 @@
     opacity: 0;
     transform: scale(0);
 }
+
+.sider-inverted-enter-active,
+.sider-inverted-leave-active {
+  --uno: h-22px transition-all-300;
+}
+
+.sider-inverted-enter-from,
+.sider-inverted-leave-to {
+  --uno: translate-x-20px opacity-0 h-0;
+}
+
+
+.setting-list-move,
+.setting-list-enter-active,
+.setting-list-leave-active {
+  --uno: transition-all-300;
+}
+
+.setting-list-enter-from,
+.setting-list-leave-to {
+  --uno: opacity-0 -translate-x-30px;
+}
+
+.setting-list-leave-active {
+  --uno: absolute;
+}

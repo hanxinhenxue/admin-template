@@ -1,6 +1,6 @@
 <template>
-  <DarkModeContainer :inverted="themeStore.header.inverted" :class="`h-${height}px`">
-    <header class="header-container absolute left-0 top-0 z-1 w-full flex-between" :class="`h-${height}px`">
+  <DarkModeContainer :inverted="themeStore.header.inverted" :style="{ height: `${themeStore.header.height}px` }">
+    <header class="header-container absolute left-0 top-0 z-1 wh-full flex-between">
       <div class="h-full flex flex-1 items-center">
         <MenuCollapse />
         <BreadCrumb v-if="themeStore.header.breadcrumb.visible && !appStore.isMobile" />
@@ -30,7 +30,6 @@ defineOptions({
 
 const themeStore = useThemeStore()
 const appStore = useAppStore()
-const { height } = themeStore.header
 </script>
 
 <style lang="scss" scoped>

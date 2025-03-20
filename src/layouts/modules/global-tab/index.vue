@@ -32,7 +32,7 @@
     </div>
     <ReloadButton />
   </DarkModeContainer>
-  <div class="w-full" :style="{ height: `${tabHeight}px` }" />
+  <div v-if="themeStore.tab.visible" class="w-full" :style="{ height: `${tabHeight}px` }" />
 </template>
 
 <script setup>

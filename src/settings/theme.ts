@@ -98,7 +98,7 @@ export const themeSettings: App.Theme.ThemeSetting = {
     // tab高度
     height: 44,
     // tab风格
-    mode: 'button',
+    mode: 'chrome',
     // 风格枚举
     modeList: [
       {
@@ -131,6 +131,6 @@ export const themeSettings: App.Theme.ThemeSetting = {
     // 水印是否显示
     visible: false,
     // 水印文字
-    text: 'SoybeanAdmin',
+    text: 'admin',
   },
 }

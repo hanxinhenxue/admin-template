@@ -1,5 +1,5 @@
 <template>
-  <div class="all dark:bg-dark dark:text-white dark:text-opacity-82" :class="inverted ? 'bg-#001428 text-white' : 'bg-white text-#333639'">
+  <div class="relative all dark:bg-dark dark:text-white dark:text-opacity-82" :class="inverted ? 'bg-#001428 text-white' : 'bg-white text-#333639'">
     <slot />
   </div>
 </template>
