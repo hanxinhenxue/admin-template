@@ -1,7 +1,7 @@
 <template>
   <n-breadcrumb class="px-12px">
     <n-breadcrumb-item v-for="item in route.matched.filter((item) => !!item.meta?.title)" :key="item.path" @click="handleBreadClick(item.path)">
-      <span class="flex-center" :class="{ 'text-#BBBBBB': themeStore.header.inverted }">
+      <span class="flex-center">
         <component :is="useSvgIcon(item.meta)" v-if="themeStore.header.breadcrumb.showIcon" class="mr-4px" />
         {{ item.meta.title }}
       </span>

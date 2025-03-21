@@ -2,6 +2,8 @@
   <n-menu
     ref="menu"
     accordion
+    :mode
+    :responsive="mode === 'horizontal'"
     :indent="18"
     :collapsed-icon-size="22"
     :collapsed-width="themeStore.sider.collapsedWidth"
@@ -22,6 +24,13 @@ import { isExternal, renderExtra } from '@/utils'
 defineOptions({
   name: 'GlobalMenu',
 })
+
+const { mode = 'vertical' } = defineProps<Props>()
+
+interface Props {
+  mode?: 'horizontal' | 'vertical'
+}
+
 const router = useRouter()
 const curRoute = useRoute()
 const themeStore = useThemeStore()

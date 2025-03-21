@@ -61,6 +61,13 @@ export const useThemeStore = defineStore('theme-store', () => {
     themeStore.$reset()
   }
   /**
+   * @description 设置主色
+   * @param themeColor 主题色
+   */
+  function setThemeColor(themeColor: string) {
+    settings.value.themeColor = themeColor
+  }
+  /**
    * @description 设置其他
    * @param key 其他颜色key
    * @param themeColor 主题色
@@ -126,5 +133,6 @@ export const useThemeStore = defineStore('theme-store', () => {
     setDarkMode,
     resetThemeStore,
     setOtherColor,
+    setThemeColor,
   }
 })

@@ -31,6 +31,7 @@
       </BetterScroll>
     </div>
     <ReloadButton />
+    <ContentFullScreen />
   </DarkModeContainer>
   <div v-if="themeStore.tab.visible" class="w-full" :style="{ height: `${tabHeight}px` }" />
 </template>
@@ -39,6 +40,7 @@
 import { useTabStore, useThemeStore } from '@/store'
 import { useElementBounding } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
+import ContentFullScreen from '../../components/content-full-screen.vue'
 import ContextMenu from '../../components/context-menu.vue'
 import ReloadButton from '../../components/reload-button.vue'
 import TabItem from '../../components/tab-item.vue'

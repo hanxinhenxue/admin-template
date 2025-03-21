@@ -1,25 +1,38 @@
 <template>
   <n-layout has-sider wh-full>
-    <n-layout-sider
-      bordered
-      collapse-mode="width"
-      :collapsed-width="themeStore.sider.collapsedWidth"
-      :width="themeStore.sider.width"
-      :native-scrollbar="false"
-      :collapsed="appStore.siderCollapse"
-      :inverted="!themeStore.darkMode && themeStore.sider.inverted"
-    >
-      <GlobalSider />
-    </n-layout-sider>
-    <main class="relative flex flex-col flex-1 overflow-hidden">
-      <GlobalHeader />
-      <GlobalTab />
-      <section class="layout-main__container flex-col flex-1 overflow-y-auto">
-        <GlobalContent />
-        <GlobalFooter v-if="!themeStore.footer.fixed" />
-      </section>
-      <GlobalFooter v-if="themeStore.footer.fixed" />
-    </main>
+    <template v-if="themeStore.layout.mode === 'vertical'">
+      <n-layout-sider
+        bordered
+        collapse-mode="width"
+        :collapsed-width="themeStore.sider.collapsedWidth"
+        :width="themeStore.sider.width"
+        :native-scrollbar="false"
+        :collapsed="appStore.siderCollapse"
+        :inverted="!themeStore.darkMode && themeStore.sider.inverted"
+      >
+        <GlobalSider />
+      </n-layout-sider>
+      <main class="relative flex flex-col flex-1 overflow-hidden">
+        <GlobalHeader />
+        <GlobalTab />
+        <section class="layout-main__container flex-col flex-1 overflow-y-auto">
+          <GlobalContent />
+          <GlobalFooter v-if="!themeStore.footer.fixed" />
+        </section>
+        <GlobalFooter v-if="themeStore.footer.fixed" />
+      </main>
+    </template>
+    <template v-else-if="themeStore.layout.mode === 'horizontal'">
+      <main class="relative flex flex-col flex-1 overflow-hidden">
+        <HorizontalHeader />
+        <GlobalTab />
+        <section class="layout-main__container flex-col flex-1 overflow-y-auto">
+          <GlobalContent :show-padding="false" />
+          <GlobalFooter v-if="!themeStore.footer.fixed" />
+        </section>
+        <GlobalFooter v-if="themeStore.footer.fixed" />
+      </main>
+    </template>
   </n-layout>
 </template>
 
@@ -30,6 +43,7 @@ import GlobalFooter from '../modules/global-footer/index.vue'
 import GlobalHeader from '../modules/global-header/index.vue'
 import GlobalSider from '../modules/global-sider/index.vue'
 import GlobalTab from '../modules/global-tab/index.vue'
+import HorizontalHeader from '../modules/horizontal-header/index.vue'
 
 defineOptions({
   name: 'BaseLayout',

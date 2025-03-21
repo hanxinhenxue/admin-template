@@ -6,8 +6,8 @@ import { h } from 'vue'
  * @param extra 额外配置
  */
 export function renderExtra(extra: RouteMeta = {}) {
-  if (extra?.dot) {
-    if (typeof extra.dot === 'boolean') {
+  if (extra?.badge) {
+    if (typeof extra.badge === 'boolean') {
       return () =>
         h(NBadge, {
           dot: true,
@@ -18,7 +18,7 @@ export function renderExtra(extra: RouteMeta = {}) {
     else {
       return () =>
         h(NBadge, {
-          value: typeof extra.dot === 'string' || typeof extra.dot === 'number' ? extra.dot : '',
+          value: typeof extra.badge === 'string' || typeof extra.badge === 'number' ? extra.badge : '',
           style: 'marginLeft: 5px',
         })
     }

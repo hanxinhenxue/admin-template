@@ -81,6 +81,13 @@ declare namespace App {
         /** 水印文字 */
         text: string
       }
+      /** 布局 */
+      layout: {
+        /** 布局模式 ... */
+        mode: string
+        /** 布局模式类型枚举 */
+        modeList: Record<string, string>[]
+      }
     }
 
     interface OtherColor {

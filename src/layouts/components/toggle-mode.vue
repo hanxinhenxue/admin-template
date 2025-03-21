@@ -1,5 +1,5 @@
 <template>
-  <hover-container class="h-full w-40px" tooltip-content="主题模式" :inverted="themeStore.header.inverted" @click="handleSwitch">
+  <hover-container class="h-full w-40px" tooltip-content="主题模式" @click="handleSwitch">
     <n-icon size="24" class="cursor-pointer">
       <SvgIcon v-if="darkMode" icon="line-md:moon-filled-loop" />
       <SvgIcon v-else icon="line-md:moon-filled-to-sunny-filled-loop-transition" />
@@ -23,7 +23,7 @@ const props = defineProps({
 const themeStore = useThemeStore()
 const darkMode = computed(() => themeStore.darkMode)
 
-async function handleSwitch(event) {
+async function handleSwitch(event: MouseEvent) {
   if (!props.animate) {
     themeStore.toggleDarkMode()
     return
@@ -33,7 +33,7 @@ async function handleSwitch(event) {
   const endRadius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y))
 
   const transition = document.startViewTransition(() => {
-    themeStore.toggleDarkMode(!darkMode.value)
+    themeStore.toggleDarkMode()
   })
 
   await transition.ready

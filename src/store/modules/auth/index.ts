@@ -55,9 +55,9 @@ export const useAuthStore = defineStore('auth-store', () => {
   async function handleActionAfterLogin(loginToken: string) {
     token.value = loginToken
     localStg.set('token', loginToken)
-    const { data: userInfo } = await fetchUserInfo()
-    Object.assign(userInfo, userInfo)
-    localStg.set('userInfo', userInfo)
+    const { data } = await fetchUserInfo()
+    Object.assign(userInfo, data)
+    localStg.set('userInfo', data)
     await addDynamicRoutes()
     const query = unref(router.currentRoute).query
     // 跳转登录后的地址
@@ -74,7 +74,7 @@ export const useAuthStore = defineStore('auth-store', () => {
     // 登录成功弹出欢迎提示
     window.$notification?.success({
       title: `${getTimePoint()}`,
-      content: `欢迎回来，${userInfo.username}`,
+      content: `欢迎回来，${userInfo.userName}`,
       duration: 3000,
     })
   }
@@ -88,9 +88,7 @@ export const useAuthStore = defineStore('auth-store', () => {
     startLoading()
     fetchToken({ username, password }).then(({ code, data }) => {
       if (code === 200 && data) {
-        if (saveAccount) {
-          localStg.set('loginInfo', { username })
-        }
+        saveAccount ? localStg.set('username', username) : localStg.remove('username')
         handleActionAfterLogin(data.token)
         endLoading()
       }
@@ -110,4 +108,9 @@ export const useAuthStore = defineStore('auth-store', () => {
     logout,
     loginHandle,
   }
+}, {
+  persist: {
+    pick: ['userInfo'],
+    storage: localStorage,
+  },
 })

@@ -133,4 +133,27 @@ export const themeSettings: App.Theme.ThemeSetting = {
     // 水印文字
     text: 'admin',
   },
+  layout: {
+    // 布局类型
+    mode: 'horizontal',
+    // 布局类型枚举
+    modeList: [
+      {
+        value: 'vertical',
+        label: '左侧菜单模式',
+      },
+      {
+        value: 'horizontal',
+        label: '顶部菜单模式',
+      },
+      {
+        value: 'vertical-mix',
+        label: '左侧菜单混合模式',
+      },
+      {
+        value: 'horizontal-mix',
+        label: '顶部菜单混合模式',
+      },
+    ],
+  },
 }
