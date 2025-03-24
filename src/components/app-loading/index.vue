@@ -28,7 +28,7 @@ const lodingClasses = ref([
 ])
 
 function addThemeColorCssVars() {
-  const themeColor = themeSettings.themeColor
+  const themeColor = localStg.get('themeColor') || themeSettings.themeColor
 
   const cssVars = `--primary-color: ${themeColor}`
   document.documentElement.style.cssText = cssVars

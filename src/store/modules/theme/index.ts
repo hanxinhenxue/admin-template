@@ -1,7 +1,9 @@
 import { localStg } from '@/utils'
 import { useEventListener } from '@vueuse/core'
+import { kebabCase } from 'lodash-es'
 import { darkTheme } from 'naive-ui'
 import { defineStore } from 'pinia'
+
 import {
   getNaiveThemeOverrides,
   initThemeSettings,
@@ -114,6 +116,37 @@ export const useThemeStore = defineStore('theme-store', () => {
       [grayscaleMode, colourWeaknessMode],
       (val) => {
         toggleAuxiliaryColorModes(val[0], val[1])
+      },
+      { immediate: true },
+    )
+    /**
+     * @description 监听 主色变化
+     */
+    watch(
+      themeColors,
+      (val) => {
+        localStg.set('themeColor', val.primary)
+      },
+      { immediate: true },
+    )
+    /**
+     * @description 监听 主题变化
+     */
+    watch(
+      naiveThemeOverrides,
+      (val) => {
+        const themeVars = val.common as Record<string, string>
+        const keys = Object.keys(themeVars)
+        const style: string[] = []
+        keys.forEach((key) => {
+          const color = themeVars[key]
+
+          if (color) {
+            style.push(`--${kebabCase(key)}: ${color}`)
+          }
+        })
+        const styleStr = style.join(';')
+        document.documentElement.style.cssText += styleStr
       },
       { immediate: true },
     )

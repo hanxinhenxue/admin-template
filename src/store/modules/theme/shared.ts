@@ -1,7 +1,7 @@
 import type { GlobalThemeOverrides } from 'naive-ui'
 import { themeSettings } from '@/settings'
 import { addColorAlpha, getColorPalette, localStg, toggleHtmlClass } from '@/utils'
-import { defu } from 'defu'
+import { cloneDeep } from 'lodash-es'
 
 /**
  * @description 初始化主题设置
@@ -15,7 +15,11 @@ export function initThemeSettings() {
 
   const localSettings: App.Theme.ThemeSetting | null = localStg.get('themeSettings')
 
-  const settings = defu(localSettings, themeSettings)
+  if (isProd && localSettings) {
+    return localSettings
+  }
+
+  const settings = cloneDeep({ ...themeSettings, ...localSettings })
 
   return settings
 }
