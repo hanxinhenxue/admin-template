@@ -1,5 +1,5 @@
 <template>
-  <DarkModeContainer class="flex-shrink-0" :style="{ height: `${themeStore.footer.height}px` }">
+  <DarkModeContainer v-if="!appStore.fullContent" class="flex-shrink-0" :style="{ height: `${themeStore.footer.height}px` }">
     <footer class="wh-full flex-center">
       Copyright
     </footer>
@@ -7,8 +7,9 @@
 </template>
 
 <script setup lang="ts">
-import { useThemeStore } from '@/store'
+import { useAppStore, useThemeStore } from '@/store'
 
 defineOptions({ name: 'GlobalFooter' })
 const themeStore = useThemeStore()
+const appStore = useAppStore()
 </script>

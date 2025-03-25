@@ -37,7 +37,7 @@
 </template>
 
 <script setup>
-import { useTabStore, useThemeStore } from '@/store'
+import { useAppStore, useTabStore, useThemeStore } from '@/store'
 import { useElementBounding } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 import ContentFullScreen from '../../components/content-full-screen.vue'
@@ -52,8 +52,9 @@ defineOptions({
 const route = useRoute()
 const themeStore = useThemeStore()
 const tabStore = useTabStore()
+const appStore = useAppStore()
 const { darkMode, themeColor } = storeToRefs(themeStore)
-const headerHeight = computed(() => themeStore.header.height)
+const headerHeight = computed(() => appStore.fullContent ? 0 : themeStore.header.height)
 const tabHeight = computed(() => themeStore.tab.height)
 const mode = computed(() => themeStore.tab.mode)
 
@@ -161,7 +162,7 @@ init()
 .tab-container {
     --t: v-bind(headerHeight);
     --h: v-bind(tabHeight);
-    @apply pl-16px absolute left-0 w-full flex-center;
+    @apply pl-16px absolute left-0 w-full flex-center z-1;
     top: calc(var(--t) * 1px);
     height: calc(var(--h) * 1px);
     box-shadow: 0 1px 2px rgba(0, 21, 41, 0.08);

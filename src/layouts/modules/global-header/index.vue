@@ -1,5 +1,5 @@
 <template>
-  <DarkModeContainer :style="{ height: `${themeStore.header.height}px` }">
+  <DarkModeContainer v-if="!appStore.fullContent" :style="{ height: `${themeStore.header.height}px` }">
     <header class="header-container absolute left-0 top-0 z-1 wh-full flex-between">
       <div class="h-full flex flex-1 items-center">
         <MenuCollapse />

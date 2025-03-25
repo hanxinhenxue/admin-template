@@ -170,6 +170,7 @@ export const useTabStore = defineStore('tab', () => {
     clearAllTab,
     clearRightTab,
     clearLeftTab,
+    clearTab,
   }
 }, {
   persist: {

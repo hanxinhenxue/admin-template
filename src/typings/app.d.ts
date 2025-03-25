@@ -64,6 +64,12 @@ declare namespace App {
         width: number
         /** 侧边栏折叠宽度 */
         collapsedWidth: number
+        /** 混合模式下侧边栏宽度 */
+        mixWidth: number
+        /** 混合模式下侧边栏收起宽度 */
+        mixCollapsedWidth: number
+        /** 混合模式下子菜单宽度 */
+        mixChildMenuWidth: number
       }
       /** 页脚 */
       footer: {

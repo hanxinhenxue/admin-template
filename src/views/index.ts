@@ -239,5 +239,14 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
+  {
+    name: 'outLink',
+    path: 'https://www.baidu.com',
+    redirect: '',
+    meta: {
+      sort: 17,
+      icon: 'token-branded:axe',
+    },
+  },
 ]
 export default routes

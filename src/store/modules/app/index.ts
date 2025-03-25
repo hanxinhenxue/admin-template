@@ -8,8 +8,13 @@ export const useAppStore = defineStore('app-store', () => {
   const { bool: reloadFlag, setBool: setReloadFlag } = useBoolean(true)
   const { bool: drawerVisible, setBool: setDrawerVisible, toggle: toggleDrawerVisible } = useBoolean(false)
   const { bool: siderCollapse, setBool: setSiderCollapse, toggle: toggleSiderCollapse } = useBoolean(true)
-  const { bool: fullContent, toggle: toggleFullContent } = useBoolean()
+  const { bool: fullContent, toggle: toggleFullContent, setBool: setFullContent } = useBoolean()
   const { bool: contentXScrollable, setBool: setContentXScrollable } = useBoolean()
+  const {
+    bool: mixSiderFixed,
+    setBool: setMixSiderFixed,
+    toggle: toggleMixSiderFixed,
+  } = useBoolean(true)
   const breakpoints = useBreakpoints(breakpointsTailwind)
   const isMobile = breakpoints.smaller('sm')
   const scope = effectScope()
@@ -65,5 +70,9 @@ export const useAppStore = defineStore('app-store', () => {
     setSiderCollapse,
     toggleSiderCollapse,
     isMobile,
+    mixSiderFixed,
+    toggleMixSiderFixed,
+    setMixSiderFixed,
+    setFullContent,
   }
 })

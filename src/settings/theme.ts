@@ -118,6 +118,12 @@ export const themeSettings: App.Theme.ThemeSetting = {
     width: 220,
     // 侧边栏收起宽度
     collapsedWidth: 64,
+    // 混合模式下侧边栏宽度
+    mixWidth: 90,
+    // 混合模式下侧边栏收起宽度
+    mixCollapsedWidth: 64,
+    // 混合模式下子菜单宽度
+    mixChildMenuWidth: 200,
   },
   footer: {
     // 底部是否显示
@@ -135,7 +141,7 @@ export const themeSettings: App.Theme.ThemeSetting = {
   },
   layout: {
     // 布局类型
-    mode: 'horizontal',
+    mode: 'vertical-mix',
     // 布局类型枚举
     modeList: [
       {
