@@ -33,7 +33,7 @@
     <ReloadButton />
     <ContentFullScreen />
   </DarkModeContainer>
-  <div v-if="themeStore.tab.visible" class="w-full" :style="{ height: `${tabHeight}px` }" />
+  <div v-if="themeStore.tab.visible" class="w-full flex-shrink-0" :style="{ height: `${tabHeight}px` }" />
 </template>
 
 <script setup>
@@ -54,7 +54,7 @@ const themeStore = useThemeStore()
 const tabStore = useTabStore()
 const appStore = useAppStore()
 const { darkMode, themeColor } = storeToRefs(themeStore)
-const headerHeight = computed(() => appStore.fullContent ? 0 : themeStore.header.height)
+const headerHeight = computed(() => appStore.fullContent || themeStore.layout.mode === 'horizontal-mix' ? 0 : themeStore.header.height)
 const tabHeight = computed(() => themeStore.tab.height)
 const mode = computed(() => themeStore.tab.mode)
 

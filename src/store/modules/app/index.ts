@@ -7,7 +7,7 @@ export const useAppStore = defineStore('app-store', () => {
   const themeStore = useThemeStore()
   const { bool: reloadFlag, setBool: setReloadFlag } = useBoolean(true)
   const { bool: drawerVisible, setBool: setDrawerVisible, toggle: toggleDrawerVisible } = useBoolean(false)
-  const { bool: siderCollapse, setBool: setSiderCollapse, toggle: toggleSiderCollapse } = useBoolean(true)
+  const { bool: siderCollapse, setBool: setSiderCollapse, toggle: toggleSiderCollapse } = useBoolean(false)
   const { bool: fullContent, toggle: toggleFullContent, setBool: setFullContent } = useBoolean()
   const { bool: contentXScrollable, setBool: setContentXScrollable } = useBoolean()
   const {

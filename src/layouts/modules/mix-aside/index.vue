@@ -8,7 +8,7 @@
       <GlobalLogo :visible="false" />
       <div class="first-level-menu">
         <div
-          v-for="item in routeStore.menuOptions" :key="item.key" class="mix-menu-item"
+          v-for="item in mixMenuStore.firstLevelMenus" :key="item.key" class="mix-menu-item"
           :class="[themeStore.darkMode ? 'bg--dark' : 'bg--light', isActived(item.key) ? 'selected' : '']"
           @click="handleMenuSelect(item?.key)"
         >
@@ -39,8 +39,8 @@
             <PinToggle />
           </header>
           <n-menu
-            v-model:value="activeSecondKey" class="flex-1" accordion :indent="18" :collapsed-icon-size="22"
-            :options="secondLevelMenu" :inverted="!themeStore.darkMode && themeStore.sider.inverted"
+            :value="mixMenuStore.selectedKey" class="flex-1" accordion :indent="18" :collapsed-icon-size="22"
+            :options="mixMenuStore.childLevelMenus" :inverted="!themeStore.darkMode && themeStore.sider.inverted"
             @update:value="handleMenuChildSelect"
           />
         </div>
@@ -51,7 +51,7 @@
 
 <script setup lang="ts">
 import { useBoolean } from '@/hooks'
-import { useAppStore, useRouteStore, useThemeStore } from '@/store'
+import { useAppStore, useThemeStore, useMixMenuStore } from '@/store'
 import { getColorPalettes, isExternal } from '@/utils'
 import PinToggle from '../../components/pin-toggle.vue'
 import GlobalLogo from '../global-logo/index.vue'
@@ -61,26 +61,20 @@ defineOptions({ name: 'MixAside' })
 const { bool, setBool } = useBoolean()
 const themeStore = useThemeStore()
 const appStore = useAppStore()
-const routeStore = useRouteStore()
+const mixMenuStore = useMixMenuStore()
 const themeColor = themeStore.themeColor
 const webTitle = ref(import.meta.env.VITE_TITLE)
 
 const bgColor = computed(() => getColorPalettes(themeColor, themeStore.darkMode)[2])
 
-const curRoute = useRoute()
+const lastActiveKey = ref(mixMenuStore.activeFirstLevelMenuKey)
 const router = useRouter()
-const activeKey = ref(curRoute.fullPath)
-const lastActiveKey = ref(curRoute.fullPath)
-const activeSecondKey = ref()
-const secondLevelMenu = computed(() => {
-  return routeStore.menuOptions.find(item => item.key === activeKey.value)?.children || []
-})
 const firstMenuWidth = computed(() => appStore.siderCollapse ? themeStore.sider.mixCollapsedWidth : themeStore.sider.mixWidth)
 const secondLevelWidth = computed(() => {
-  return secondLevelMenu?.value.length > 0 ? `${themeStore.sider.mixChildMenuWidth}` : '0'
+  return mixMenuStore.childLevelMenus?.length > 0 ? `${themeStore.sider.mixChildMenuWidth}` : '0'
 })
 const secondLevelClass = computed(() => {
-  if (secondLevelMenu.value.length > 0) {
+  if (mixMenuStore.childLevelMenus.length > 0) {
     if (!appStore.mixSiderFixed) {
       return `no-fixed`
     }
@@ -102,23 +96,22 @@ function isActived(key: string | undefined | number) {
   if (key === undefined)
     return false
   if (typeof key === 'number') {
-    return activeKey.value.includes(String(key))
+    return String(key).includes(String(mixMenuStore.activeFirstLevelMenuKey))
   }
-  return activeKey.value.includes(key)
+  return key.includes(mixMenuStore.activeFirstLevelMenuKey)
 }
 
 function handleMenuSelect(key: string | undefined | number) {
   if (key === undefined)
     return
   const formatKey = typeof key === 'number' ? String(key) : key
-  activeKey.value = formatKey
   if (isExternal(formatKey)) {
     window.open(formatKey)
   }
   else {
-    activeKey.value = formatKey
+    mixMenuStore.setActiveFirstLevelMenuKey(formatKey)
     nextTick(() => {
-      if (secondLevelMenu.value.length === 0) {
+      if (mixMenuStore.childLevelMenus.length === 0) {
         lastActiveKey.value = formatKey
         router.push(formatKey)
       }
@@ -134,16 +127,15 @@ function handleMenuChildSelect(key: string) {
     window.open(key)
   }
   else {
-    lastActiveKey.value = activeKey.value
+    lastActiveKey.value = mixMenuStore.activeFirstLevelMenuKey
     router.push(key)
   }
 }
 
 function leaveHandle() {
   setBool(false)
-  console.log(appStore.mixSiderFixed)
   if (appStore.mixSiderFixed) {
-    activeKey.value = lastActiveKey.value
+    mixMenuStore.setActiveFirstLevelMenuKey(lastActiveKey.value)
   }
 }
 </script>

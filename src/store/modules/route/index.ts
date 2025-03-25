@@ -15,6 +15,9 @@ export const useRouteStore = defineStore('route-store', () => {
 
   const menus = computed(() => routes.value.filter((route: RouteRecordRaw) => route.name && !route.hidden))
 
+  const headerMenuActiveKey = ref('/dashboard')
+  const sideMenuActiveKey = ref()
+
   /**
    * @description 是否是有效的固定路由
    * @param name 路由名称
@@ -165,6 +168,18 @@ export const useRouteStore = defineStore('route-store', () => {
     return menus.value.map(item => getMenuItem(item)).sort((a, b) => a.order! - b.order!) as unknown as MenuOption[]
   })
 
+  function setHeaderMenuKey(key: string) {
+    headerMenuActiveKey.value = key
+  }
+
+  const mixSideMenuOptions = computed(() => {
+    return menuOptions.value.find(item => item.key === headerMenuActiveKey.value)?.children || []
+  })
+
+  function setSideMenuKey(key: string) {
+    sideMenuActiveKey.value = key
+  }
+
   return {
     accessRoutes,
     cacheRoutes,
@@ -177,5 +192,14 @@ export const useRouteStore = defineStore('route-store', () => {
     addCacheRoute,
     reCacheRoute,
     menuOptions,
+    headerMenuActiveKey,
+    setHeaderMenuKey,
+    mixSideMenuOptions,
+    sideMenuActiveKey,
+    setSideMenuKey,
   }
+}, {
+  persist: {
+    storage: sessionStorage,
+  },
 })

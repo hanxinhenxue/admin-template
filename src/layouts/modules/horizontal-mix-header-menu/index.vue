@@ -1,26 +1,24 @@
 <template>
   <n-menu
-    ref="menu"
-    v-model:value="activeKey"
+    :value="mixMenuStore.activeFirstLevelMenuKey"
     accordion
     :mode
     :responsive="mode === 'horizontal'"
     :indent="18"
     :collapsed-icon-size="22"
     :collapsed-width="themeStore.sider.collapsedWidth"
-    :options="routeStore.menuOptions"
+    :options="mixMenuStore.firstLevelMenus"
     :inverted="!themeStore.darkMode && themeStore.sider.inverted"
     @update:value="handleMenuSelect"
   />
 </template>
 
 <script setup lang="ts">
-import type { MenuInst } from 'naive-ui'
-import { useRouteStore, useThemeStore } from '@/store'
+import { useThemeStore, useMixMenuStore } from '@/store'
 import { isExternal } from '@/utils'
 
 defineOptions({
-  name: 'GlobalMenu',
+  name: 'HorizontalMixHeaderMenu',
 })
 
 const { mode = 'vertical' } = defineProps<Props>()
@@ -30,27 +28,18 @@ interface Props {
 }
 
 const router = useRouter()
-const curRoute = useRoute()
 const themeStore = useThemeStore()
-const routeStore = useRouteStore()
-const activeKey = computed(() => {
-  const { activeMenu } = curRoute.meta
-  const name = curRoute.fullPath as string
-  return activeMenu || name
-})
-
-const menuEl = useTemplateRef<MenuInst>('menu')
-watch(curRoute, async () => {
-  await nextTick()
-  menuEl.value?.showOption()
-})
+const mixMenuStore = useMixMenuStore()
 
 function handleMenuSelect(key: string) {
   if (isExternal(key)) {
     window.open(key)
   }
   else {
-    router.push(key)
+    mixMenuStore.setActiveFirstLevelMenuKey(key)
+    if (!mixMenuStore.childLevelMenus?.length) {
+      router.push(key)
+    }
   }
 }
 </script>

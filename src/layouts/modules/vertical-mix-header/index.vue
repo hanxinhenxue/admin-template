@@ -1,6 +1,6 @@
 <template>
   <DarkModeContainer v-if="!appStore.fullContent" :style="{ height: `${themeStore.header.height}px` }">
-    <header class="header-container relative z-1 box-border wh-full flex items-center px-12px">
+    <header class="header-container relative z-2 box-border wh-full flex items-center px-12px">
       <div class="h-full flex flex-1 items-center">
         <BreadCrumb v-if="themeStore.header.breadcrumb.visible && !appStore.isMobile" />
       </div>

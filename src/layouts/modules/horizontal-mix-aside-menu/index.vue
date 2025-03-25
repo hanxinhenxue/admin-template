@@ -1,14 +1,14 @@
 <template>
   <n-menu
     ref="menu"
-    v-model:value="activeKey"
+    :value="mixMenuStore.selectedKey"
     accordion
     :mode
     :responsive="mode === 'horizontal'"
     :indent="18"
     :collapsed-icon-size="22"
     :collapsed-width="themeStore.sider.collapsedWidth"
-    :options="routeStore.menuOptions"
+    :options="mixMenuStore.childLevelMenus"
     :inverted="!themeStore.darkMode && themeStore.sider.inverted"
     @update:value="handleMenuSelect"
   />
@@ -16,11 +16,11 @@
 
 <script setup lang="ts">
 import type { MenuInst } from 'naive-ui'
-import { useRouteStore, useThemeStore } from '@/store'
+import { useThemeStore, useMixMenuStore } from '@/store'
 import { isExternal } from '@/utils'
 
 defineOptions({
-  name: 'GlobalMenu',
+  name: 'HorizontalMixAsideMenu',
 })
 
 const { mode = 'vertical' } = defineProps<Props>()
@@ -32,12 +32,7 @@ interface Props {
 const router = useRouter()
 const curRoute = useRoute()
 const themeStore = useThemeStore()
-const routeStore = useRouteStore()
-const activeKey = computed(() => {
-  const { activeMenu } = curRoute.meta
-  const name = curRoute.fullPath as string
-  return activeMenu || name
-})
+const mixMenuStore = useMixMenuStore()
 
 const menuEl = useTemplateRef<MenuInst>('menu')
 watch(curRoute, async () => {

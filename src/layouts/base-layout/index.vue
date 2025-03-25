@@ -46,17 +46,46 @@
         <GlobalFooter v-if="themeStore.footer.fixed" />
       </main>
     </template>
+    <template v-else-if="themeStore.layout.mode === 'horizontal-mix'">
+      <div class="flex flex-col flex-1 overflow-hidden">
+        <HorizontalMixHeader />
+        <div class="flex flex-1 overflow-hidden">
+          <n-layout-sider
+            v-if="!appStore.fullContent && routeStore.mixSideMenuOptions.length > 0"
+            bordered
+            collapse-mode="width"
+            :collapsed-width="themeStore.sider.collapsedWidth"
+            :width="themeStore.sider.width"
+            :native-scrollbar="false"
+            :collapsed="appStore.siderCollapse"
+            :inverted="!themeStore.darkMode && themeStore.sider.inverted"
+          >
+            <HorizontalMixAsideMenu />
+          </n-layout-sider>
+          <main class="relative flex flex-col flex-1 overflow-hidden">
+            <GlobalTab />
+            <section class="layout-main__container flex-col flex-1 overflow-y-auto">
+              <GlobalContent />
+              <GlobalFooter v-if="!themeStore.footer.fixed" />
+            </section>
+            <GlobalFooter v-if="themeStore.footer.fixed" />
+          </main>
+        </div>
+      </div>
+    </template>
   </n-layout>
 </template>
 
 <script setup lang="ts">
-import { useAppStore, useThemeStore } from '@/store'
+import { useAppStore, useRouteStore, useThemeStore } from '@/store'
 import GlobalContent from '../modules/global-content/index.vue'
 import GlobalFooter from '../modules/global-footer/index.vue'
 import GlobalHeader from '../modules/global-header/index.vue'
 import GlobalSider from '../modules/global-sider/index.vue'
 import GlobalTab from '../modules/global-tab/index.vue'
 import HorizontalHeader from '../modules/horizontal-header/index.vue'
+import HorizontalMixAsideMenu from '../modules/horizontal-mix-aside-menu/index.vue'
+import HorizontalMixHeader from '../modules/horizontal-mix-header/index.vue'
 import MixAside from '../modules/mix-aside/index.vue'
 import VerticalMixHeader from '../modules/vertical-mix-header/index.vue'
 
@@ -66,6 +95,7 @@ defineOptions({
 
 const themeStore = useThemeStore()
 const appStore = useAppStore()
+const routeStore = useRouteStore()
 </script>
 
 <style lang="scss" scoped>

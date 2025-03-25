@@ -141,7 +141,7 @@ export const themeSettings: App.Theme.ThemeSetting = {
   },
   layout: {
     // 布局类型
-    mode: 'vertical-mix',
+    mode: 'horizontal-mix',
     // 布局类型枚举
     modeList: [
       {

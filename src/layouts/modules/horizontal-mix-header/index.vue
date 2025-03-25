@@ -4,8 +4,11 @@
       <div h-full flex-shrink-0 pr-10px>
         <GlobalLogo />
       </div>
+      <div h-full flex-shrink-0 pr-10px>
+        <MenuCollapse />
+      </div>
       <div h-full flex-center flex-1 overflow-hidden>
-        <GlobalMenu mode="horizontal" />
+        <HorizontalMixHeaderMenu mode="horizontal" />
       </div>
       <div class="h-full flex-center flex-shrink-0">
         <ToggleMode />
@@ -20,14 +23,15 @@
 <script lang="ts" setup>
 import { useAppStore, useThemeStore } from '@/store'
 import FullScreen from '../../components/full-screen.vue'
+import MenuCollapse from '../../components/menu-collapse.vue'
 import ThemeSetting from '../../components/theme-setting.vue'
 import ToggleMode from '../../components/toggle-mode.vue'
 import UserAvatar from '../../components/user-avatar.vue'
 import GlobalLogo from '../global-logo/index.vue'
-import GlobalMenu from '../global-menu/index.vue'
+import HorizontalMixHeaderMenu from '../horizontal-mix-header-menu/index.vue'
 
 defineOptions({
-  name: 'HorizontalHeader',
+  name: 'HorizontalMixHeader',
 })
 
 const themeStore = useThemeStore()
