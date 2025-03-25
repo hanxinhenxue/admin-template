@@ -2,11 +2,9 @@
   <n-menu
     :value="mixMenuStore.activeFirstLevelMenuKey"
     accordion
-    :mode
-    :responsive="mode === 'horizontal'"
+    mode="horizontal"
+    :responsive="true"
     :indent="18"
-    :collapsed-icon-size="22"
-    :collapsed-width="themeStore.sider.collapsedWidth"
     :options="mixMenuStore.firstLevelMenus"
     :inverted="!themeStore.darkMode && themeStore.sider.inverted"
     @update:value="handleMenuSelect"
@@ -14,18 +12,12 @@
 </template>
 
 <script setup lang="ts">
-import { useThemeStore, useMixMenuStore } from '@/store'
+import { useMixMenuStore, useThemeStore } from '@/store'
 import { isExternal } from '@/utils'
 
 defineOptions({
   name: 'HorizontalMixHeaderMenu',
 })
-
-const { mode = 'vertical' } = defineProps<Props>()
-
-interface Props {
-  mode?: 'horizontal' | 'vertical'
-}
 
 const router = useRouter()
 const themeStore = useThemeStore()
@@ -43,7 +35,3 @@ function handleMenuSelect(key: string) {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

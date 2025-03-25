@@ -39,7 +39,7 @@
             <PinToggle />
           </header>
           <n-menu
-            :value="mixMenuStore.selectedKey" class="flex-1" accordion :indent="18" :collapsed-icon-size="22"
+            :value="mixMenuStore.selectedKey" class="flex-1" accordion :indent="18"
             :options="mixMenuStore.childLevelMenus" :inverted="!themeStore.darkMode && themeStore.sider.inverted"
             @update:value="handleMenuChildSelect"
           />
@@ -51,7 +51,7 @@
 
 <script setup lang="ts">
 import { useBoolean } from '@/hooks'
-import { useAppStore, useThemeStore, useMixMenuStore } from '@/store'
+import { useAppStore, useMixMenuStore, useThemeStore } from '@/store'
 import { getColorPalettes, isExternal } from '@/utils'
 import PinToggle from '../../components/pin-toggle.vue'
 import GlobalLogo from '../global-logo/index.vue'

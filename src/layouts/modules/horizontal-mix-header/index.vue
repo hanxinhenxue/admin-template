@@ -8,7 +8,7 @@
         <MenuCollapse />
       </div>
       <div h-full flex-center flex-1 overflow-hidden>
-        <HorizontalMixHeaderMenu mode="horizontal" />
+        <HorizontalMixHeaderMenu />
       </div>
       <div class="h-full flex-center flex-shrink-0">
         <ToggleMode />

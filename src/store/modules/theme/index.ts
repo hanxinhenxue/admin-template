@@ -40,6 +40,8 @@ export const useThemeStore = defineStore('theme-store', () => {
 
   const pageAnimateMode = computed(() => settings.value.page.animate ? settings.value.page.animateMode : '')
 
+  const settingsJson = computed(() => JSON.stringify(settings.value))
+
   /**
    * @description 切换暗黑模式
    */
@@ -167,5 +169,6 @@ export const useThemeStore = defineStore('theme-store', () => {
     resetThemeStore,
     setOtherColor,
     setThemeColor,
+    settingsJson,
   }
 })

@@ -3,8 +3,6 @@
     ref="menu"
     :value="mixMenuStore.selectedKey"
     accordion
-    :mode
-    :responsive="mode === 'horizontal'"
     :indent="18"
     :collapsed-icon-size="22"
     :collapsed-width="themeStore.sider.collapsedWidth"
@@ -16,18 +14,12 @@
 
 <script setup lang="ts">
 import type { MenuInst } from 'naive-ui'
-import { useThemeStore, useMixMenuStore } from '@/store'
+import { useMixMenuStore, useThemeStore } from '@/store'
 import { isExternal } from '@/utils'
 
 defineOptions({
   name: 'HorizontalMixAsideMenu',
 })
-
-const { mode = 'vertical' } = defineProps<Props>()
-
-interface Props {
-  mode?: 'horizontal' | 'vertical'
-}
 
 const router = useRouter()
 const curRoute = useRoute()

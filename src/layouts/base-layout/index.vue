@@ -51,7 +51,7 @@
         <HorizontalMixHeader />
         <div class="flex flex-1 overflow-hidden">
           <n-layout-sider
-            v-if="!appStore.fullContent && routeStore.mixSideMenuOptions.length > 0"
+            v-if="!appStore.fullContent && mixMenuStore.childLevelMenus.length > 0"
             bordered
             collapse-mode="width"
             :collapsed-width="themeStore.sider.collapsedWidth"
@@ -77,7 +77,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAppStore, useRouteStore, useThemeStore } from '@/store'
+import { useAppStore, useRouteStore, useThemeStore, useMixMenuStore } from '@/store'
 import GlobalContent from '../modules/global-content/index.vue'
 import GlobalFooter from '../modules/global-footer/index.vue'
 import GlobalHeader from '../modules/global-header/index.vue'
@@ -96,6 +96,7 @@ defineOptions({
 const themeStore = useThemeStore()
 const appStore = useAppStore()
 const routeStore = useRouteStore()
+const mixMenuStore = useMixMenuStore()
 </script>
 
 <style lang="scss" scoped>

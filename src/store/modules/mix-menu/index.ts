@@ -29,14 +29,14 @@ export const useMixMenuStore = defineStore(
         const { children: _, ...rest } = menu
 
         return rest
-      })
+      }),
     )
 
     const childLevelMenus = computed(
       () =>
         routeStore.menuOptions.find(
-          (menu) => menu.key === activeFirstLevelMenuKey.value
-        )?.children || []
+          menu => menu.key === activeFirstLevelMenuKey.value,
+        )?.children || [],
     )
 
     const isActiveFirstLevelMenuHasChildren = computed(() => {
@@ -45,7 +45,7 @@ export const useMixMenuStore = defineStore(
       }
 
       const findItem = routeStore.menuOptions.find(
-        (item) => item.key === activeFirstLevelMenuKey.value
+        item => item.key === activeFirstLevelMenuKey.value,
       )
 
       return Boolean(findItem?.children?.length)
@@ -56,7 +56,7 @@ export const useMixMenuStore = defineStore(
       () => {
         getActiveFirstLevelMenuKey()
       },
-      { immediate: true }
+      { immediate: true },
     )
 
     return {
@@ -73,5 +73,5 @@ export const useMixMenuStore = defineStore(
     persist: {
       storage: sessionStorage,
     },
-  }
+  },
 )
